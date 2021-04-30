@@ -7,7 +7,7 @@ class DevelopmentConfig(Config):
     TESTING = True
 
 
-class ProductionConfig:
+class ProductionConfig(Config):
     FLASK_ENV = 'production'
     DEBUG = False
     TESTING = False
