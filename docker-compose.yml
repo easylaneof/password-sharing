@@ -9,7 +9,7 @@ services:
       - ./app/backend:/flask
     environment:
       - FLASK_ENV=development
-      - FLASK_APP=app.py
+      - FLASK_APP=application/app.py
     ports:
       - 5000:5000
     restart: unless-stopped
