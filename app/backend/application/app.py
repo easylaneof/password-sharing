@@ -13,12 +13,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('config.DevelopmentConfig')
     CORS(app, supports_credentials=True)
-    db.init_app(app)
+  #  db.init_app(app)
     app.register_blueprint(main)
     with app.app_context():
         from routes import general
         import dbmodels
-        db.create_all()
+#        db.create_all()
         return app
 
 
