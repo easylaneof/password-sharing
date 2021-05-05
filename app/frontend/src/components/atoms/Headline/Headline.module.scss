@@ -1,0 +1,14 @@
+.container {
+  color: var(--white);
+  font-family: var(--main-font);
+  font-weight: 600;
+  margin: 0;
+}
+
+:global .headline1 {
+  font-size: 48px;
+}
+
+:global .headline2 {
+  font-size: 36px;
+}
