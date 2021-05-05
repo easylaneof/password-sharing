@@ -19,8 +19,13 @@ class Sessions(db.Model):
         db.VARBINARY(2048),
         nullable=False
     )
-    used = db.Column(
+    max_uses = db.Column(
         db.INT,
+        nullable=True,
+        default=None
+    )
+    client_only = db.Column(
+        db.BOOLEAN,
         nullable=False,
-        default=0
+        default=False
     )
