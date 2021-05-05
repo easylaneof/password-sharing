@@ -8,6 +8,7 @@ greenlet==1.0.0
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
+pycryptodome==3.10.1
 PyJWT==2.1.0
 python-dotenv==0.17.0
 six==1.15.0
