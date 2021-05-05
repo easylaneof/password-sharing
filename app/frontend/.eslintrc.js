@@ -15,6 +15,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jest/recommended',
     'plugin:testing-library/react',
+    'plugin:cypress/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
