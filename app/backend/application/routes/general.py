@@ -26,7 +26,7 @@ def generate():
 def encrypt():
     validator(request, ["public_key", "password", "id"])
     data = request.get_json()
-    secret = encrypt_password(data['public_key'], data['password'])
+    secret = encrypt_password(str.encode(data['public_key']), data['password'])
 
     return {"message": "OK",
             "secret": secret,

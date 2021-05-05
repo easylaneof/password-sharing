@@ -9,7 +9,7 @@ def generate_keys():
             "private": keys.exportKey()}
 
 
-def encrypt_password(public_key: str, password: str):
+def encrypt_password(public_key: bytes, password: str):
     password = password.encode("utf-8")
     try:
         recipient_key = RSA.importKey(public_key)
@@ -19,4 +19,3 @@ def encrypt_password(public_key: str, password: str):
     ciphertext = cipher.encrypt(password)
     return str(ciphertext)
 
-# def decrypt_password()
