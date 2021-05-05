@@ -1,7 +1,6 @@
-import werkzeug.exceptions
 from flask import current_app as app, request
 from application.app import db
-from application.utils import generate_id
+from application.utils import generate_id, validator
 from application.encryption import *
 from application.dbmodels import Sessions
 
@@ -25,9 +24,7 @@ def generate():
 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
-    if not request.is_json:
-        raise werkzeug.exceptions.BadRequest
-
+    validator(request, ["public_key", "password", "id"])
     data = request.get_json()
     secret = encrypt_password(data['public_key'], data['password'])
 
