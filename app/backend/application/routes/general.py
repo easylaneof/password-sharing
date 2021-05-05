@@ -22,9 +22,11 @@ def generate():
                 "public_key": str(keys['public'], "utf-8"),
                 "id": new_id}
     if not client_only:
-        new_record.private_key = keys['private']
         new_record.client_only = True
         response['private_key'] = str(keys['private'], "utf-8")
+
+    else:
+        new_record.private_key = keys['private']
     create_record(new_record)
     return response, 200
 
