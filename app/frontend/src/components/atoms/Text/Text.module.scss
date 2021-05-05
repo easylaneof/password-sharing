@@ -1,0 +1,14 @@
+.container {
+  font-family: var(--main-font);
+  color: var(--clay);
+}
+
+:global .text {
+  font-weight: var(--text-weight);
+  font-size: 16px;
+}
+
+:global .caption {
+  font-weight: var(--caption-weight);
+  font-size: 14px;
+}
