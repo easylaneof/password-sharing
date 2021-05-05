@@ -2,5 +2,6 @@
   "*.{js,ts,jsx,tsx}": [
     "yarn lint:fix",
     "prettier --write"
-  ]
+  ],
+  "*.{css, scss}": ["yarn lint:css:fix"]
 }

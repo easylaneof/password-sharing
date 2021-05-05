@@ -38,7 +38,9 @@
     "lint-staged": "^10.5.4",
     "node-sass": "5.0.0",
     "prettier": "2.2.1",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
@@ -52,7 +54,9 @@
     "build-sb": "build-storybook -s public",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "validate": "yarn lint && prettier --check && yarn test",
+    "lint:css": "stylelint **/*.scss",
+    "lint:css:fix": "stylelint **/*.scss --fix",
+    "validate": "yarn lint && prettier --check && yarn lint:css && yarn test",
     "prepare": "cd ../.. && husky install ./app/frontend/.husky"
   },
   "browserslist": {
