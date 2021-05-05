@@ -1,9 +1,11 @@
 import binascii
 from flask import current_app as app, request
+from application import db
 from application.database import create_record, get_validate_record
 from application.dbmodels import Sessions
 from application.utils import generate_id, validator
 from application.encryption import *
+from application.dbmodels import Sessions
 
 
 @app.route("/generate", methods=["GET"])
