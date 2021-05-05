@@ -4,40 +4,38 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'react-app/jest',
-    'prettier'
+    "eslint:recommended",
+    "react-app/jest",
+    "prettier",
+
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:jest/recommended",
+    "plugin:testing-library/react"
   ],
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true
     },
     ecmaVersion: 12,
-    sourceType: 'module'
+    sourceType: "module"
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    'import',
-    'jest',
-    'jsx-a11y',
-    'react-hooks',
-    'testing-library'
-  ],
   rules: {
-    'react/prop-types': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    "react/prop-types": "off",
+    "import/no-unresolved": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   overrides: [
     {
       files: [
-        '**/*.stories.*'
+        "**/*.stories.*"
       ],
       rules: {
-        'import/no-anonymous-default-export': 'off'
+        "import/no-anonymous-default-export": "off"
       }
     }
   ]
