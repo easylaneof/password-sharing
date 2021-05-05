@@ -15,7 +15,7 @@ def create_app():
     app.register_blueprint(main)
     with app.app_context():
         from routes import general, error_handling
-        import dbmodels
+        from application import dbmodels
         db.create_all()
         return app
 
