@@ -1,3 +1,4 @@
+import binascii
 from flask import current_app as app, request
 from application.app import db
 from application.utils import generate_id, validator
@@ -29,6 +30,19 @@ def encrypt():
     secret = encrypt_password(str.encode(data['public_key']), data['password'])
 
     return {"message": "OK",
-            "secret": secret,
+            "secret": str(secret, "utf-8"),
             "id": data['id'],
             "public_key": data['public_key']}, 200
+
+
+@app.route("/decrypt", methods=["POST"])
+def decrypt():
+    validator(request, ["public_key", "id", "secret"])
+    data = request.get_json()
+    private_key = get_validate_record(data['id'], data['public_key'])
+    try:
+        password = decrypt_password(private_key, base64.b64decode(data["secret"]))
+    except binascii.Error:
+        raise werkzeug.exceptions.BadRequest("Incorrect secret")
+    return {"message": "OK",
+            "password": password}, 200
