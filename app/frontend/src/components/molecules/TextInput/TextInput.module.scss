@@ -1,0 +1,22 @@
+.container {
+  padding: 10px;
+
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  background-color: var(--gray);
+
+  transition: 0.2s border-color;
+
+  font-family: var(--main-font);
+  color: var(--white);
+  font-weight: var(--text-weight);
+  font-size: 16px;
+}
+
+.container:hover {
+  border-color: var(--background);
+}
+
+.container:focus {
+  outline: none;
+}
