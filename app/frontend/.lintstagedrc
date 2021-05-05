@@ -1,0 +1,6 @@
+{
+  "./app/frontend/**/*.{js,ts,jsx,tsx}": [
+    "yarn lint:fix",
+    "prettier --write --ignore-unknown"
+  ]
+}
