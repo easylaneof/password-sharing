@@ -1,16 +1,16 @@
 .container {
-  padding: 10px;
+  background-color: var(--gray);
 
   border: 1px solid var(--gray);
   border-radius: 4px;
-  background-color: var(--gray);
-
-  transition: 0.2s border-color;
+  color: var(--white);
 
   font-family: var(--main-font);
-  color: var(--white);
-  font-weight: var(--text-weight);
   font-size: 16px;
+  font-weight: var(--text-weight);
+  padding: 10px;
+
+  transition: 0.2s border-color;
 }
 
 .container:hover {

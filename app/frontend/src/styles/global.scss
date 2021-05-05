@@ -5,17 +5,17 @@
   --caption-weight: 300;
 
   --clay: #222831;
-  --gray: #393E46;
-  --violet: #93329E;
-  --dark-violet: #73237C;
-  --light-gray: #EEEEEE;
-  --background: #999999;
-  --white: #FFFFFF;
+  --gray: #393e46;
+  --violet: #93329e;
+  --dark-violet: #73237c;
+  --light-gray: #eee;
+  --background: #999;
+  --white: #fff;
 }
 
 body {
-  font-family: var(--main-font);
   background-color: var(--clay);
+  font-family: var(--main-font);
 
   margin: 0;
   padding: 0;

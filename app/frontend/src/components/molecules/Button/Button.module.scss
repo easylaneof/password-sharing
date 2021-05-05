@@ -1,18 +1,18 @@
 .container {
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
   align-items: center;
-
-  transition: 0.2s background-color, 0.2s border-color;
 
   background-color: var(--violet);
 
   border: 3px solid transparent;
   border-radius: 4px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
 
   padding: 12px 20px;
+
+  transition: 0.2s background-color, 0.2s border-color;
 }
 
 .container:hover {
@@ -20,11 +20,11 @@
 }
 
 .container:disabled {
-  cursor: initial;
   background-color: var(--background);
+  cursor: initial;
 }
 
 .container:focus {
-  outline: none;
   border-color: var(--background);
+  outline: none;
 }
