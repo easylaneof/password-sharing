@@ -1,4 +1,4 @@
-from app import db
+from application import db
 
 
 class Sessions(db.Model):
@@ -19,7 +19,7 @@ class Sessions(db.Model):
         db.VARBINARY(2048),
         nullable=False
     )
-    used = db.Column(
+    max_uses = db.Column(
         db.INT,
         nullable=False,
         default=0

@@ -1,6 +1,6 @@
 import binascii
 from flask import current_app as app, request
-from application.app import db
+from application import db
 from application.utils import generate_id, validator
 from application.encryption import *
 from application.dbmodels import Sessions
