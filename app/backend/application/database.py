@@ -1,6 +1,6 @@
 import werkzeug.exceptions
 from application.dbmodels import Sessions
-from app import db
+from application import db
 
 
 def create_record(session: Sessions):
