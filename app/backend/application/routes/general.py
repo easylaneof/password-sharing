@@ -21,7 +21,7 @@ def generate():
     response = {"message": "OK",
                 "public_key": str(keys['public'], "utf-8"),
                 "id": new_id}
-    if not client_only:
+    if client_only:
         new_record.client_only = True
         response['private_key'] = str(keys['private'], "utf-8")
 

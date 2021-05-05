@@ -17,7 +17,7 @@ class Sessions(db.Model):
     )
     private_key = db.Column(
         db.VARBINARY(2048),
-        nullable=False
+        nullable=True
     )
     max_uses = db.Column(
         db.INT,
