@@ -17,4 +17,6 @@ const Template: Story<Omit<TextInputProps, 'setValue'>> = (props) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  value: '',
+};
