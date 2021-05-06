@@ -7,7 +7,7 @@ import { TextInputProps } from './TextInput.interface';
 import s from './TextInput.module.scss';
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
-  ({ setValue, value, className, readonly, name, onChange, placeholder }, ref): JSX.Element => {
+  ({ setValue, value, className, readonly, name, onChange, placeholder, type }, ref): JSX.Element => {
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       if (setValue) {
         setValue(e.target.value);
@@ -27,6 +27,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
+        type={type}
       />
     );
   }
