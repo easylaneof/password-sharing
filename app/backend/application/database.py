@@ -22,6 +22,8 @@ def delete_record(record_id: str):
 
 def set_record_uses(record_id: str, max_uses: int):
     record = db.session.query(Sessions).filter_by(id=record_id).first()
+    if record is None:
+        raise werkzeug.exceptions.BadRequest("Incorrect ID")
     record.max_uses = max_uses
     db.session.commit()
 
