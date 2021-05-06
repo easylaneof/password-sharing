@@ -6,13 +6,13 @@ import { Button } from './Button.component';
 import { ButtonProps } from './Button.interface';
 
 export default {
-  title: 'Button',
-  component: Button
+  title: 'molecules/Button',
+  component: Button,
 } as Meta;
 
 const Template: Story<ButtonProps> = (props) => <Button {...props} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  text: 'Я кнопка'
+  text: 'Я кнопка',
 };

@@ -1,0 +1,30 @@
+.container {
+  align-items: center;
+
+  background-color: var(--violet);
+
+  border: 3px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 12px 20px;
+
+  transition: 0.2s background-color, 0.2s border-color;
+}
+
+.container:hover {
+  background-color: var(--dark-violet);
+}
+
+.container:disabled {
+  background-color: var(--background);
+  cursor: initial;
+}
+
+.container:focus {
+  border-color: var(--background);
+  outline: none;
+}
