@@ -2,7 +2,7 @@ import base64
 
 import werkzeug.exceptions
 from Crypto.PublicKey import RSA
-from Crypto.Cipher import AES, PKCS1_OAEP
+from Crypto.Cipher import PKCS1_OAEP
 
 
 def generate_keys():

@@ -2,7 +2,8 @@ import binascii
 from flask import current_app as app, request
 from application.database import *
 from application.utils import generate_id, validator
-from application.encryption import *
+from application.encryption.app_encryption import *
+from application.encryption.aes_encryption import AESEncryption
 from application.dbmodels import Sessions
 
 
@@ -10,9 +11,10 @@ from application.dbmodels import Sessions
 def generate():
     keys = generate_keys()
     new_id = generate_id()
+    encrypted_private_key = AESEncryption().encrypt(keys["private"])
     new_record = Sessions(id=new_id,
                           public_key=keys["public"],
-                          private_key=keys["private"])
+                          private_key=encrypted_private_key)
     create_record(new_record)
     return {"message": "OK",
             "id": new_id}, 200
@@ -42,7 +44,7 @@ def decrypt():
     record = get_validate_record(data["id"])
     if record.max_uses is not None:
         decrease_record_uses(record.id)
-    private_key = record.private_key
+    private_key = AESEncryption().decrypt(record.private_key)
     try:
         password = decrypt_password(private_key, base64.b64decode(data["secret"].replace(" ", "+")))
     except binascii.Error:
