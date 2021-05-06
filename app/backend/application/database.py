@@ -16,13 +16,13 @@ def get_validate_record(record_id: str):
 
 
 def delete_record(record_id: str):
-    db.session.query() \
-        .filter_by(Sessions.id == record_id).first() \
+    db.session.query(Sessions) \
+        .filter_by(id=record_id).first() \
         .delete()
 
 
 def set_record_uses(record_id: str, max_usage: int):
-    record = db.session.query().filter_by(Sessions.id == record_id).first()
+    record = db.session.query(Sessions).filter_by(id=record_id).first()
     record.max_uses = max_usage
 
 
