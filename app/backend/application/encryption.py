@@ -6,7 +6,7 @@ from Crypto.Cipher import AES, PKCS1_OAEP
 
 
 def generate_keys():
-    keys = RSA.generate(2048)
+    keys = RSA.generate(1024)
     return {"public": keys.public_key().exportKey(),
             "private": keys.exportKey()}
 
