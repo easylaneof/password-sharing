@@ -4,7 +4,7 @@ describe('Generate page spec', () => {
   });
 
   it('copies url to clipboard', () => {
-    cy.contains('Generate').click();
+    cy.contains('Copy to clipboard').click();
 
     cy.window().then((w) => w.navigator.clipboard.readText().then((text) => expect(text.length).to.be.greaterThan(5)));
   });
