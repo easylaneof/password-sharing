@@ -1,4 +1,4 @@
-from app import db
+from application import db
 
 
 class Sessions(db.Model):
@@ -17,10 +17,10 @@ class Sessions(db.Model):
     )
     private_key = db.Column(
         db.VARBINARY(2048),
-        nullable=False
+        nullable=True
     )
-    used = db.Column(
+    max_uses = db.Column(
         db.INT,
-        nullable=False,
-        default=0
+        nullable=True,
+        default=None
     )
