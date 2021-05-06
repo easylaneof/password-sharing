@@ -21,7 +21,7 @@ def delete_record(record_id: str):
         .delete()
 
 
-def set_record_uses(record_id: str, max_usage: int):
+def set_record_uses(record_id: str, max_uses: int):
     record = db.session.query(Sessions).filter_by(id=record_id).first()
     record.max_uses = max_usage
 
