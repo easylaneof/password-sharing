@@ -15,30 +15,29 @@ def generate():
                           private_key=keys['private'])
     create_record(new_record)
     return {"message": "OK",
-            "public_key": str(keys['public'], "utf-8"),
             "id": new_id}, 200
 
 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
-    validator(request, ["public_key", "password", "id"])
+    validator(request, ["password", "id"])
     data = request.get_json()
     try:
         max_uses = int(data['max_uses']) if "max_uses" in data.keys() else None
     except ValueError:
         raise werkzeug.exceptions.BadRequest("Incorrect usage count")
     set_record_uses(data['id'], max_uses)
-    secret = encrypt_password(str.encode(data['public_key']), data['password'])
+    public_key = get_validate_record(data['id']).public_key
+    secret = encrypt_password(public_key, data['password'])
 
     return {"message": "OK",
             "secret": str(secret, "utf-8"),
-            "id": data['id'],
-            "public_key": data['public_key']}, 200
+            "id": data['id']}, 200
 
 
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
-    validator(request, ["public_key", "id", "secret"])
+    validator(request, ["id", "secret"])
     data = request.get_json()
     record = get_validate_record(data['id'])
     if record.max_uses is not None:
