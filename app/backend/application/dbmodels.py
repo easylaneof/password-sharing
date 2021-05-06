@@ -24,8 +24,3 @@ class Sessions(db.Model):
         nullable=True,
         default=None
     )
-    client_only = db.Column(
-        db.BOOLEAN,
-        nullable=False,
-        default=False
-    )

@@ -16,15 +16,20 @@ def get_validate_record(record_id: str):
 
 
 def delete_record(record_id: str):
-    db.session.query()\
-        .filter_by(Sessions.id == record_id).first()\
+    db.session.query() \
+        .filter_by(Sessions.id == record_id).first() \
         .delete()
 
 
-def update_record_usages(record_id: str):
-    record = db.session.query()\
+def set_record_uses(record_id: str, max_usage: int):
+    record = db.session.query().filter_by(Sessions.id == record_id).first()
+    record.max_uses = max_usage
+
+
+def decrease_record_uses(record_id: str):
+    record = db.session.query() \
         .filter_by(Sessions.id == record_id).first()
-    record.max_uses = Sessions.max_uses+1
+    record.max_uses = Sessions.max_uses + 1
     db.session.commit()
     if record.max_uses == 0:
         delete_record(record_id)
