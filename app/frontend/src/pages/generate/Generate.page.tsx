@@ -29,7 +29,7 @@ export const GeneratePage = () => {
       <Text text="Very useful text. Very useful text text useful" />
 
       <div className={s.content}>
-        <TextInput ref={inputRef} value={link} setValue={setLink} readonly />
+        <TextInput ref={inputRef} value={link} readonly />
         <Button onClick={handleGeneration} text="Generate" />
       </div>
 

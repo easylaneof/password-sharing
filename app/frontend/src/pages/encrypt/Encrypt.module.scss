@@ -1,0 +1,20 @@
+.container {
+  align-items: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  margin-top: 20px;
+
+  > *:first-of-type {
+    margin-right: 10px;
+  }
+}
