@@ -8,6 +8,7 @@ import { Text } from 'components/atoms/Text';
 import { Headline } from 'components/atoms/Headline';
 import { TextInput } from 'components/molecules/TextInput';
 import { Button } from 'components/molecules/Button';
+
 import s from './Generate.module.scss';
 
 export const GeneratePage = () => {

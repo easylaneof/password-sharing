@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { useSearchParams } from 'lib/searchParams';
+import { post } from 'lib/api';
+
+import { EncryptionParams, EncryptionResponse } from 'types';
 
 import { Button } from 'components/molecules/Button';
 import { TextInput } from 'components/molecules/TextInput';
 
 import s from './Encrypt.module.scss';
-import { post } from '../../lib/api';
-import { EncryptionParams, EncryptionResponse } from '../../types';
 
 export const EncryptPage = (): JSX.Element => {
   const [password, setPassword] = useState('');
