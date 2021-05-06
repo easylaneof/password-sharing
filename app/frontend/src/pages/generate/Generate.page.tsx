@@ -1,26 +1,36 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import s from './Generate.module.scss';
+import { get } from 'lib/api';
+
+import { GenerationResponse } from 'types';
+
+import { Environment } from 'modules/Environment';
 
 import { Text } from 'components/atoms/Text';
 import { Headline } from 'components/atoms/Headline';
 import { TextInput } from 'components/molecules/TextInput';
 import { Button } from 'components/molecules/Button';
 
+import s from './Generate.module.scss';
+
 export const GeneratePage = () => {
-  const [link, setLink] = useState(Math.random().toString());
+  const [link, setLink] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleGeneration = () => {
-    setLink(Math.random().toString());
+  const handleGeneration = async () => {
+    const { id } = await get<GenerationResponse>('/generate');
+    setLink(`${Environment.hostname}/encrypt?id=${id}`);
   };
 
   const handleCopyToClipboard = async () => {
-    inputRef.current?.focus();
     if (navigator.clipboard) {
       await navigator.clipboard.writeText(link);
     }
   };
+
+  useEffect(() => {
+    handleGeneration();
+  }, []);
 
   return (
     <main className={s.container}>
