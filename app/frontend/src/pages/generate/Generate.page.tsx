@@ -4,6 +4,8 @@ import { get } from 'lib/api';
 
 import { GenerationResponse } from 'types';
 
+import { Environment } from 'modules/Environment';
+
 import { Text } from 'components/atoms/Text';
 import { Headline } from 'components/atoms/Headline';
 import { TextInput } from 'components/molecules/TextInput';
@@ -17,7 +19,7 @@ export const GeneratePage = () => {
 
   const handleGeneration = async () => {
     const { id } = await get<GenerationResponse>('/generate');
-    setLink(`localhost:3000/encrypt?id=${id}`);
+    setLink(`${Environment.hostname}/encrypt?id=${id}`);
   };
 
   const handleCopyToClipboard = async () => {

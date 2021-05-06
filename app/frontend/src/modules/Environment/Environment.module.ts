@@ -9,4 +9,5 @@ const getEnv = (envName: string): string => {
 export const Environment = {
   environment: getEnv('REACT_APP_ENVIRONMENT') as EnvironmentType,
   backendUrl: getEnv('REACT_APP_BACKEND_URL'),
+  hostname: getEnv('REACT_APP_HOSTNAME'),
 };

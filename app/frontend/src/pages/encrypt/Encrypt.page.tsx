@@ -5,6 +5,8 @@ import { post } from 'lib/api';
 
 import { EncryptionParams, EncryptionResponse } from 'types';
 
+import { Environment } from 'modules/Environment';
+
 import { Button } from 'components/molecules/Button';
 import { TextInput } from 'components/molecules/TextInput';
 
@@ -27,7 +29,7 @@ export const EncryptPage = (): JSX.Element => {
       const response = await post<EncryptionResponse, EncryptionParams>('/encrypt', { id, password: newPassword });
       if (response.message === 'OK') {
         const { id, secret } = response as { id: string; secret: string };
-        setLink(`localhost:3000/decrypt?id=${id}&secret=${secret}`);
+        setLink(`${Environment.hostname}/decrypt?id=${id}&secret=${secret}`);
       }
     }
   };
