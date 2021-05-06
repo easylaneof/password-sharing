@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import s from './Generate.module.scss';
 
@@ -9,13 +9,17 @@ import { Button } from 'components/molecules/Button';
 
 export const GeneratePage = () => {
   const [link, setLink] = useState(Math.random().toString());
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleGeneration = () => {
     setLink(Math.random().toString());
   };
 
-  const handleCopyToClipboard = () => {
-    //
+  const handleCopyToClipboard = async () => {
+    inputRef.current?.focus();
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(link);
+    }
   };
 
   return (
@@ -25,7 +29,7 @@ export const GeneratePage = () => {
       <Text text="Very useful text. Very useful text text useful" />
 
       <div className={s.content}>
-        <TextInput value={link} setValue={setLink} readonly />
+        <TextInput ref={inputRef} value={link} setValue={setLink} readonly />
         <Button onClick={handleGeneration} text="Generate" />
       </div>
 

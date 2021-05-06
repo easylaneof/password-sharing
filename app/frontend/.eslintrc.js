@@ -3,6 +3,11 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   extends: [
     'eslint:recommended',
     'react-app/jest',
@@ -15,6 +20,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jest/recommended',
     'plugin:testing-library/react',
+    'plugin:cypress/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
