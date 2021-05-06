@@ -23,13 +23,14 @@ def delete_record(record_id: str):
 
 def set_record_uses(record_id: str, max_uses: int):
     record = db.session.query(Sessions).filter_by(id=record_id).first()
-    record.max_uses = max_usage
+    record.max_uses = max_uses
+    db.session.commit()
 
 
 def decrease_record_uses(record_id: str):
-    record = db.session.query() \
-        .filter_by(Sessions.id == record_id).first()
-    record.max_uses = Sessions.max_uses + 1
+    record = db.session.query(Sessions) \
+        .filter_by(id=record_id).first()
+    record.max_uses = Sessions.max_uses - 1
     db.session.commit()
     if record.max_uses == 0:
         delete_record(record_id)
