@@ -44,7 +44,7 @@ def decrypt():
         decrease_record_uses(record.id)
     private_key = record.private_key
     try:
-        password = decrypt_password(private_key, base64.b64decode(data['secret']))
+        password = decrypt_password(private_key, base64.b64decode(data['secret'].replace(" ", "+")))
     except binascii.Error:
         raise werkzeug.exceptions.BadRequest("Incorrect secret")
     return {"message": "OK",
