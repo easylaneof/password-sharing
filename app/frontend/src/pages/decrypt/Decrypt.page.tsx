@@ -22,7 +22,7 @@ export const DecryptPage = (): JSX.Element => {
 
   const searchParams = useSearchParams();
   useGate(queryParamsGate, {
-    public_key: searchParams.get<string>('public_key'),
+    publicKey: searchParams.get<string>('publicKey'),
     id: searchParams.get<string>('id'),
     secret: searchParams.get<string>('secret'),
   });

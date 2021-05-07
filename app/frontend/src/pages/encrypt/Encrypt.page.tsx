@@ -12,7 +12,7 @@ import s from './Encrypt.module.scss';
 
 export const EncryptPage = (): JSX.Element => {
   const searchParams = useSearchParams();
-  useGate(queryParamsGate, { id: searchParams.get<string>('id'), public_key: searchParams.get<string>('public_key') });
+  useGate(queryParamsGate, { id: searchParams.get<string>('id'), publicKey: searchParams.get<string>('publicKey') });
 
   const password = useStore($password);
   const link = useStore($link);

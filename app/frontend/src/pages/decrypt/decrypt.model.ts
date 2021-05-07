@@ -1,15 +1,17 @@
-import { attach, combine, createEffect, createStore } from 'effector';
+import { attach, createEffect, createStore } from 'effector';
 import { createGate } from 'effector-react';
+
+import { writeToClipboard } from 'lib/clipboard';
+import { decrypt } from 'lib/crypto';
+
 import { DecryptResponse } from './decrypt.types';
 import { postDecrypt } from './decrypt.api';
-import { writeToClipboard } from '../../lib/clipboard';
-import { $link } from '../encrypt/encrypt.model';
 
 export const $password = createStore('');
 
 type QueryParamsType = {
   secret: string | null;
-  public_key: string | null;
+  publicKey: string | null;
   id: string | null;
 };
 
@@ -32,6 +34,18 @@ export const fetchPasswordFx = attach({
         throw { message: 'Invalid link' };
       }
 
+      if (params.publicKey) {
+        const { id, secret } = params;
+        const keys: Record<string, { privateKey: string }> = JSON.parse(localStorage.getItem('keys') ?? '{}');
+        const currentKeys = keys[id];
+
+        if (!currentKeys) {
+          throw { message: 'Invalid link' };
+        }
+
+        return decrypt(currentKeys.privateKey, secret);
+      }
+
       let data: DecryptResponse;
 
       try {
@@ -40,7 +54,7 @@ export const fetchPasswordFx = attach({
         throw { message: 'Something went wrong' };
       }
 
-      if (data.message != 'OK') {
+      if (data.message !== 'OK') {
         throw { message: data.message };
       }
 
@@ -51,3 +65,7 @@ export const fetchPasswordFx = attach({
 
 export const $passwordLoading = fetchPasswordFx.pending;
 export const $passwordError = fetchPasswordFx.failData.map((d) => d.message);
+
+$passwordError.watch(console.log);
+
+$password.on(fetchPasswordFx.doneData, (_, v) => v);

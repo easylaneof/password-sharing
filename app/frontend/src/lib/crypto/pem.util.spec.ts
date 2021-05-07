@@ -1,0 +1,70 @@
+import { addFirstAndLastLine, PemType, removeFirstAndLastLine } from './pem.util';
+
+const PEM_WITHOUT_LINES = `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
+hMnpHOOGnVBZdVNxlZ9utshYrhRTfEnn`;
+
+const PUBLIC_PEM = `-----BEGIN PUBLIC KEY-----\r\n${PEM_WITHOUT_LINES}\r\n-----END PUBLIC KEY-----\r\n`;
+const PRIVATE_PEM = `-----BEGIN RSA PRIVATE KEY-----\r\n${PEM_WITHOUT_LINES}\r\n-----END RSA PRIVATE KEY-----\r\n`;
+
+describe('Pem utils', () => {
+  it('removes first and last lines from pem', () => {
+    expect(removeFirstAndLastLine(PUBLIC_PEM)).toBe(PEM_WITHOUT_LINES);
+    expect(removeFirstAndLastLine(PRIVATE_PEM)).toBe(PEM_WITHOUT_LINES);
+  });
+
+  it('adds first and last lines for public pem', () => {
+    expect(addFirstAndLastLine(PEM_WITHOUT_LINES, PemType.PUBLIC)).toBe(PUBLIC_PEM);
+  });
+
+  it('adds first and last lines for private pem', () => {
+    expect(addFirstAndLastLine(PEM_WITHOUT_LINES, PemType.PRIVATE)).toBe(PRIVATE_PEM);
+  });
+});

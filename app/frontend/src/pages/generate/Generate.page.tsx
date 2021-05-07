@@ -7,12 +7,13 @@ import { Headline } from 'components/atoms/Headline';
 import { TextInput } from 'components/molecules/TextInput';
 import { Button } from 'components/molecules/Button';
 
-import { $link, copyLinkToClipboardFx, generateLinkFx } from './generate.model';
+import { $isClientOnly, $link, copyLinkToClipboardFx, generateLinkFx, setIsClientOnly } from './generate.model';
 
 import s from './Generate.module.scss';
 
 export const GeneratePage = () => {
   const link = useStore($link);
+  const isClientOnly = useStore($isClientOnly);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -28,10 +29,15 @@ export const GeneratePage = () => {
 
       <div className={s.content}>
         <TextInput ref={inputRef} value={link} readonly />
-        <Button onClick={generateLinkFx} text="Generate" />
+        <Button onClick={generateLinkFx as () => void} text="Generate" />
       </div>
 
       <Button onClick={copyLinkToClipboardFx as () => void} text="Copy to clipboard" />
+
+      <label className={s.clientOnly}>
+        <Text text="Is client only" />
+        <input type="checkbox" checked={isClientOnly} onChange={(e) => setIsClientOnly(e.target.checked)} />
+      </label>
     </main>
   );
 };
