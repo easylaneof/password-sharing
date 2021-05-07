@@ -24,3 +24,8 @@ class Sessions(db.Model):
         nullable=True,
         default=None
     )
+    expiry = db.Column(
+        db.DATETIME,
+        nullable=True,
+        default=None
+    )

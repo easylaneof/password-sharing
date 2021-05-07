@@ -14,3 +14,13 @@ def validator(request, keys):
     for key in keys:
         if key not in request_dictionary.keys():
             raise werkzeug.exceptions.BadRequest(f"Key Error: {key}")
+
+
+def convert_str_to_int(string: str, error_message: str):
+    try:
+        converted = int(string)
+        if converted < 0:
+            raise ValueError
+        return converted
+    except ValueError:
+        raise werkzeug.exceptions.BadRequest(error_message)

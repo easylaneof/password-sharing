@@ -1,7 +1,7 @@
 import binascii
 from flask import current_app as app, request
 from application.database import *
-from application.utils import generate_id, validator
+from application.utils import generate_id, validator, convert_str_to_int
 from application.encryption.app_encryption import *
 from application.encryption.aes_encryption import AESEncryption
 from application.dbmodels import Sessions
@@ -24,11 +24,12 @@ def generate():
 def encrypt():
     validator(request, ["password", "id"])
     data = request.get_json()
-    try:
-        max_uses = int(data["max_uses"]) if "max_uses" in data.keys() else None
-    except ValueError:
-        raise werkzeug.exceptions.BadRequest("Incorrect usage count")
-    set_record_uses(data["id"], max_uses)
+    max_uses = convert_str_to_int(data["max_uses"], "Incorrect usage count") if "max_uses" in data.keys() else None
+    expiry_hours = convert_str_to_int(data["expiry_hours"],
+                                      "Incorrect expiry time") if "expiry_hours" in data.keys() else 0
+    expiry_minutes = convert_str_to_int(data["expiry_minutes"],
+                                        "Incorrect expiry time") if "expiry_minutes" in data.keys() else 0
+    set_record_uses_expiry(data["id"], max_uses, expiry_hours, expiry_minutes)
     public_key = get_validate_record(data["id"]).public_key
     secret = encrypt_password(public_key, data["password"])
 
