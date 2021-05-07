@@ -1,58 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useGate, useStore } from 'effector-react';
 
 import { useSearchParams } from 'lib/searchParams';
-import { post } from 'lib/api';
-
-import { EncryptionParams, EncryptionResponse } from 'types';
-
-import { Environment } from 'modules/Environment';
 
 import { Button } from 'components/molecules/Button';
 import { TextInput } from 'components/molecules/TextInput';
 
+import { $link, $password, changePassword, copyLinkToClipboardFx, queryParamsGate } from './encrypt.model';
+
 import s from './Encrypt.module.scss';
 
 export const EncryptPage = (): JSX.Element => {
-  const [password, setPassword] = useState('');
-  const [link, setLink] = useState('');
-
   const searchParams = useSearchParams();
-  const id = searchParams.get<string>('id');
+  useGate(queryParamsGate, { id: searchParams.get<string>('id'), public_key: searchParams.get<string>('public_key') });
 
-  const handlePasswordChange = (newPassword: string) => {
-    setPassword(newPassword);
-    setLink('');
-  };
-
-  const handleLinkGeneration = async (newPassword: string) => {
-    if (id) {
-      const response = await post<EncryptionResponse, EncryptionParams>('/encrypt', { id, password: newPassword });
-      if (response.message === 'OK') {
-        const { id, secret } = response as { id: string; secret: string };
-        setLink(`${Environment.hostname}/decrypt?id=${id}&secret=${secret}`);
-      }
-    }
-  };
-
-  const handleCopyToClipboard = async () => {
-    if (navigator.clipboard) {
-      await navigator.clipboard.writeText(link);
-    }
-  };
-
-  useEffect(() => {
-    if (password !== '') {
-      handleLinkGeneration(password);
-    }
-  }, [password]);
+  const password = useStore($password);
+  const link = useStore($link);
 
   return (
     <main className={s.container}>
-      <TextInput placeholder="Type your password..." value={password} setValue={handlePasswordChange} />
+      <TextInput placeholder="Type your password..." value={password} setValue={changePassword} />
 
       <div className={s.link}>
         <TextInput placeholder="Here will be the link" value={link} readonly />
-        <Button text="Copy" onClick={handleCopyToClipboard} disabled={link.length === 0} />
+        <Button text="Copy" onClick={copyLinkToClipboardFx as () => void} disabled={link.length === 0} />
       </div>
     </main>
   );

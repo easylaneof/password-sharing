@@ -1,35 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { get } from 'lib/api';
-
-import { GenerationResponse } from 'types';
-
-import { Environment } from 'modules/Environment';
+import { useStore } from 'effector-react';
 
 import { Text } from 'components/atoms/Text';
 import { Headline } from 'components/atoms/Headline';
 import { TextInput } from 'components/molecules/TextInput';
 import { Button } from 'components/molecules/Button';
 
+import { $link, copyLinkToClipboardFx, generateLinkFx } from './generate.model';
+
 import s from './Generate.module.scss';
 
 export const GeneratePage = () => {
-  const [link, setLink] = useState('');
+  const link = useStore($link);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleGeneration = async () => {
-    const { id } = await get<GenerationResponse>('/generate');
-    setLink(`${Environment.hostname}/encrypt?id=${id}`);
-  };
-
-  const handleCopyToClipboard = async () => {
-    if (navigator.clipboard) {
-      await navigator.clipboard.writeText(link);
-    }
-  };
-
   useEffect(() => {
-    handleGeneration();
+    generateLinkFx(null as never);
   }, []);
 
   return (
@@ -40,10 +28,10 @@ export const GeneratePage = () => {
 
       <div className={s.content}>
         <TextInput ref={inputRef} value={link} readonly />
-        <Button onClick={handleGeneration} text="Generate" />
+        <Button onClick={generateLinkFx} text="Generate" />
       </div>
 
-      <Button onClick={handleCopyToClipboard} text="Copy to clipboard" />
+      <Button onClick={copyLinkToClipboardFx as () => void} text="Copy to clipboard" />
     </main>
   );
 };
