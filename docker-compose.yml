@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  flask:
+  backend:
     build:
       app/backend
     command: [ 'flask', 'run', '--host=0.0.0.0', '--port=5000' ]
     volumes:
-      - ./app/backend:/flask
+      - ./app/backend:/backend
     environment:
       - FLASK_ENV=development
       - FLASK_APP=application/app.py
@@ -14,18 +14,15 @@ services:
       - 5000:5000
     restart: unless-stopped
 
-  react:
+  frontend:
     build:
       app/frontend
-    command: ['npm', 'start']
     volumes:
-    - ./app/frontend:/react
-    environment:
-      - NODE_ENV=developmnet
+    - ./app/frontend:/frontend
     ports:
-      - 3000:3000
+      - 80:80
     depends_on:
-      - flask
+      - backend
     restart: unless-stopped
 
 volumes:

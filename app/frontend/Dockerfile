@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn --production
+RUN yarn
 RUN yarn build
 
 FROM nginx:stable-alpine
