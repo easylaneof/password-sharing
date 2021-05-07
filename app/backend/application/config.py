@@ -8,6 +8,8 @@ load_dotenv(path.join(basedir, ".env"))
 class Config:
     STATIC_FOLDER = "static"
     SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URI")
+    ENCRYPTION_KEY = environ.get("ENCRYPTION_KEY")
+    ENCRYPTION_IV = environ.get("ENCRYPTION_IV")
     JWT_TOKEN_LOCATION = ("headers", "query_string")
     JWT_QUERY_STRING_NAME = "token"
     JWT_HEADER_TYPE = ""
