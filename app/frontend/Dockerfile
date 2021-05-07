@@ -1,6 +1,16 @@
-FROM node:13.12.0-alpine
-RUN mkdir /react
-WORKDIR /react
-COPY package.json /react/package.json
-RUN npm install
-COPY . ./
+FROM node:12.18.2-alpine as frontend
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY . .
+
+RUN yarn --production
+RUN yarn build
+
+FROM nginx:stable-alpine
+
+COPY --from=frontend /app/build /usr/share/nginx/html
+COPY --from=frontend /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
