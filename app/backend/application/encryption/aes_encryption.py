@@ -1,10 +1,12 @@
 from Crypto.Cipher import AES
-from flask import current_app as app
+
+from application.config import Config
 
 
 class AESEncryption:
-    key = app.config["ENCRYPTION_KEY"].encode()
-    iv = app.config["ENCRYPTION_IV"].encode()
+    def __init__(self):
+        self.key = Config.ENCRYPTION_KEY.encode()
+        self.iv = Config.ENCRYPTION_IV.encode()
 
     def encrypt(self, message: bytes):
         cipher = AES.new(self.key, AES.MODE_CFB, self.iv)
