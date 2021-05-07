@@ -2,7 +2,6 @@ import random
 import string
 from unittest.mock import patch
 
-import application
 from application.encryption.aes_encryption import AESEncryption
 
 
