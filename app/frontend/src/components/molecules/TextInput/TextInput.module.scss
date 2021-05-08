@@ -1,22 +1,44 @@
 .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
   background-color: var(--gray);
 
-  border: 1px solid var(--gray);
-  border-radius: 4px;
-  color: var(--white);
+  border: 2px solid var(--input-border);
+  border-radius: 10px;
+  color: var(--text);
 
   font-family: var(--main-font);
   font-size: 16px;
   font-weight: var(--text-weight);
-  padding: 10px;
+  line-height: 125%;
+
+  margin-top: 5px;
+  padding: 15px;
 
   transition: 0.2s border-color;
 }
 
-.container:hover {
-  border-color: var(--background);
+.input::placeholder {
+  color: var(--placeholder);
 }
 
-.container:focus {
+.input:hover {
+  border-color: var(--input-border-hover);
+}
+
+.input:focus {
+  border-color: var(--input-border-focus);
   outline: none;
+}
+
+.input.error {
+  border-color: var(--error);
+}
+
+.errorText {
+  margin-left: 10px;
+  margin-top: 5px;
 }

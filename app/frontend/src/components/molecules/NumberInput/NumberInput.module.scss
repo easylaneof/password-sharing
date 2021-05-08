@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.input {
+  border: 1.5px solid var(--input-border);
+  border-radius: 10px;
+
+  color: var(--text);
+
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: var(--text-weight);
+  height: 50px;
+  line-height: 125%;
+
+  text-align: center;
+
+  transition: 0.2s border-color;
+  width: 50px;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  appearance: textfield;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+.input:hover {
+  border-color: var(--input-border-hover);
+}
+
+.input:focus {
+  border-color: var(--input-border-focus);
+  outline: none;
+}
+
+.input.error {
+  border-color: var(--error);
+  margin-top: 5px;
+}
+
+.errorText {
+  margin-left: 10px;
+  margin-top: 5px;
+}

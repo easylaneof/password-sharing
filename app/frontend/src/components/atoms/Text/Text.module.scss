@@ -1,14 +1,23 @@
 .container {
-  color: var(--clay);
+  color: var(--text);
   font-family: var(--main-font);
+  transition: var(--theme-change-transition-duration) color;
 }
 
-:global .text {
+:global .number {
+  font-size: 18px;
+  font-weight: var(--number-weight);
+  line-height: 125%;
+}
+
+:global .body {
   font-size: 16px;
   font-weight: var(--text-weight);
+  line-height: 125%;
 }
 
 :global .caption {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: var(--caption-weight);
+  line-height: 125%;
 }

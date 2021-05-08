@@ -5,8 +5,6 @@ import cx from 'classnames';
 import { HeadlineProps } from './Headline.interface';
 import s from './Headline.module.scss';
 
-export const Headline = ({ text, type = 'headline2', className }: HeadlineProps): JSX.Element => {
-  const tag = type === 'headline1' ? 'h1' : 'h2';
-
-  return React.createElement(tag, { className: cx(s.container, className, type) }, text);
+export const Headline = ({ text, type = 'h3', className, asSpan = false }: HeadlineProps): JSX.Element => {
+  return React.createElement(asSpan ? 'span' : type, { className: cx(s.container, className, type) }, text);
 };

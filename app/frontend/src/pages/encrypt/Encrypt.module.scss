@@ -7,6 +7,7 @@
 }
 
 .link {
+  align-items: flex-end;
   display: flex;
   justify-content: space-between;
 
@@ -14,5 +15,9 @@
 
   > *:first-of-type {
     margin-right: 10px;
+  }
+
+  button {
+    height: 54px;
   }
 }

@@ -1,8 +1,9 @@
-export type HeadlineTypes = 'headline1' | 'headline2';
+export type HeadlineTypes = 'h1' | 'h2' | 'h3';
 
 export type HeadlineProps = {
   text: string;
 
   type?: HeadlineTypes;
   className?: string;
+  asSpan?: boolean;
 };

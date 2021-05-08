@@ -10,13 +10,13 @@ describe('Headline', () => {
 
     render(<Headline text={text} />);
 
-    const headline = screen.getByRole('heading', { level: 2 });
+    const headline = screen.getByRole('heading');
 
     expect(headline).toHaveTextContent(text);
   });
 
   it.each([1, 2])('renders heading with level %i', (level) => {
-    render(<Headline text="" type={`headline${level}` as HeadlineTypes} />);
+    render(<Headline text="" type={`h${level}` as HeadlineTypes} />);
 
     expect(screen.getByRole('heading', { level })).toBeInTheDocument();
   });

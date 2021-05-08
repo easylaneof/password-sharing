@@ -1,22 +1,60 @@
 :root {
   --main-font: 'Montserrat', sans-serif;
-  --heading-weight: 500;
-  --text-weight: 400;
-  --caption-weight: 300;
 
-  --clay: #222831;
-  --gray: #393e46;
-  --violet: #93329e;
-  --dark-violet: #73237c;
-  --light-gray: #eee;
-  --background: #999;
+  --theme-change-transition-duration: 0.2s;
+
+  --heading-weight: 500;
+  --number-weight: normal;
+  --text-weight: 400;
+  --caption-weight: 500;
+
+  --dark-clay: #222831;
+  --clay: #393e46;
+  --dark-grey: #41464f;
+  --grey: #50505a;
+  --steel-grey: #bdbdcb;
+  --light-steel-grey: #f2f2f9;
   --white: #fff;
+
+  --dark-violet: #73237c;
+  --violet: #93329e;
+  --light-violet: #b45bbe;
+
+  --red: #ee4831;
+
+  /* -------------------- */
+
+  --main: var(--violet);
+  --main-hover: var(--light-violet);
+  --main-disabled: var(--dark-violet);
+  --placeholder: var(--steel-grey);
+  --error: var(--red);
+
+  --focus-outline: var(--steel-grey);
+
+  --text: var(--clay);
+  --background: var(--white);
+
+  --input-border: var(--light-steel-grey);
+  --input-border-hover: var(--steel-grey);
+  --input-border-focus: var(--light-violet);
+}
+
+.dark-theme {
+  --text: var(--light-steel-grey);
+  --background: var(--clay);
+
+  --input-border: var(--grey);
+  --input-border-hover: var(--dark-clay);
+  --input-border-focus: var(--light-violet);
 }
 
 body {
-  background-color: var(--clay);
+  background-color: var(--background);
+  box-sizing: border-box;
   font-family: var(--main-font);
 
   margin: 0;
   padding: 0;
+  transition: background-color var(--theme-change-transition-duration);
 }

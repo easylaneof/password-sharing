@@ -5,5 +5,6 @@ export type ButtonProps = {
   onClick: MouseEventHandler;
 
   disabled?: boolean;
+  loading?: boolean;
   className?: string;
 };

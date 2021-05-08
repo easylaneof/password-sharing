@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.inputsContainer {
+  display: flex;
+}
+
+.input {
+  border: 1.5px solid var(--input-border);
+  border-radius: 10px;
+
+  color: var(--text);
+
+  font-family: var(--main-font);
+  font-size: 16px;
+  font-weight: var(--text-weight);
+  height: 50px;
+  line-height: 125%;
+
+  text-align: center;
+
+  transition: 0.2s border-color;
+  width: 50px;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  appearance: textfield;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
+
+.input:hover {
+  border-color: var(--input-border-hover);
+}
+
+.errorText {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.input.error {
+  border-color: var(--error);
+}
+
+.input:focus {
+  border-color: var(--input-border-focus);
+  outline: none;
+}
+
+.circlesContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 12px;
+
+  > .circle:first-of-type {
+    margin-bottom: 7px;
+  }
+}
+
+.circle {
+  background-color: var(--input-border-hover);
+  border-radius: 50%;
+  height: 4px;
+  width: 4px;
+}
