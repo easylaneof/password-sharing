@@ -1,7 +1,5 @@
 import random
 import string
-
-import pytest
 from flask import url_for
 
 
