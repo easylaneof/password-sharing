@@ -22,12 +22,10 @@ def delete_record(record_id: str):
     db.session.commit()
 
 
-def set_record_uses_expiry(record_id: str, max_uses: int, expiry_hours: int, expiry_minutes: int):
+def set_record_uses_and_expiry(record_id: str, max_uses: int, expiry_hours: int, expiry_minutes: int):
     record = db.session.query(Sessions).filter_by(id=record_id).first()
     if record is None:
         raise werkzeug.exceptions.BadRequest("Incorrect ID")
-    if max_uses == 0:
-        raise werkzeug.exceptions.BadRequest("Incorrect usage count")
     record.max_uses = max_uses
     td = datetime.timedelta(hours=expiry_hours,
                             minutes=expiry_minutes)
