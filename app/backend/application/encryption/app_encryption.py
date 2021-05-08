@@ -31,5 +31,5 @@ def decrypt_password(private_key: bytes, secret: bytes):
     try:
         password = cipher.decrypt(secret)
     except ValueError:
-        raise werkzeug.exceptions.BadRequest("Invalid secret")
+        raise werkzeug.exceptions.BadRequest("Incorrect secret")
     return str(password, "utf-8")
