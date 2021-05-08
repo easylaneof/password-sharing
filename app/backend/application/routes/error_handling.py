@@ -1,5 +1,5 @@
 import werkzeug.exceptions
-from flask import current_app as app, Blueprint
+from flask import current_app as app
 
 
 @app.errorhandler(werkzeug.exceptions.BadRequest)

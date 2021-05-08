@@ -25,7 +25,7 @@ def convert_str_to_non_negative_int(string: str, error_message: str):
 
 
 def convert_str_to_positive_int(string: str, error_message: str):
-    integer = convert_str_to_positive_int(string, error_message)
+    integer = convert_str_to_non_negative_int(string, error_message)
     if integer == 0:
         raise werkzeug.exceptions.BadRequest(error_message)
     return integer

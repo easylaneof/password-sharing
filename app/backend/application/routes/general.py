@@ -1,8 +1,5 @@
 import binascii
 from flask import request, Blueprint
-from application.database import *
-from application.utils import generate_id, validator, convert_str_to_int
-from flask import current_app as app, request
 from application.database import create_record, set_record_uses_and_expiry, \
     get_validate_record, decrease_record_uses
 from application.utils import generate_id, validator, convert_str_to_non_negative_int, \
