@@ -4,7 +4,7 @@ from webtest import TestApp
 from application import create_app, db as _db, config
 
 
-@pytest.yield_fixture(scope='function')
+@pytest.fixture(scope='function')
 def app():
     """An application for the tests."""
     _app = create_app(config.TestConfig)
