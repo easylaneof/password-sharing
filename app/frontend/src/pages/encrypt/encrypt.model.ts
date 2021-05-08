@@ -1,4 +1,4 @@
-import { attach, createEffect, createEvent, createStore, combine, sample } from 'effector';
+import { attach, createEffect, createEvent, createStore, combine } from 'effector';
 import { createGate } from 'effector-react';
 
 import { writeToClipboard } from 'lib/clipboard';
@@ -38,6 +38,7 @@ export const generateLinkFx = attach({
         const publicKeyWithPluses = publicKey.split(' ').join('+');
 
         const secret = await encrypt(publicKeyWithPluses, password);
+
         return `${Environment.hostname}/decrypt?id=${id}&secret=${secret}&publicKey=${publicKeyWithPluses}`;
       }
 

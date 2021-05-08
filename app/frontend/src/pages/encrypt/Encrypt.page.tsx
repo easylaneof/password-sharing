@@ -1,7 +1,7 @@
 import React from 'react';
 import { useGate, useStore } from 'effector-react';
 
-import { useSearchParams } from 'lib/searchParams';
+import { useSearchParams } from 'lib/search-params';
 
 import { Button } from 'components/molecules/Button';
 import { TextInput } from 'components/molecules/TextInput';
@@ -19,10 +19,10 @@ export const EncryptPage = (): JSX.Element => {
 
   return (
     <main className={s.container}>
-      <TextInput placeholder="Type your password..." value={password} setValue={changePassword} />
+      <TextInput label="Password" placeholder="Type your password..." value={password} setValue={changePassword} />
 
       <div className={s.link}>
-        <TextInput placeholder="Here will be the link" value={link} readonly />
+        <TextInput label="Link" placeholder="Here will be the link" value={link} readonly />
         <Button text="Copy" onClick={copyLinkToClipboardFx as () => void} disabled={link.length === 0} />
       </div>
     </main>

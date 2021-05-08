@@ -1,4 +1,4 @@
-import { pki } from 'node-forge';
+import { pki, util } from 'node-forge';
 
 import { addFirstAndLastLine, PemType, removeFirstAndLastLine } from './pem.util';
 
@@ -23,10 +23,10 @@ export const getKeyPair = () => {
 
 export const encrypt = (publicKey: string, password: string) => {
   const publicKeyObject = pki.publicKeyFromPem(addFirstAndLastLine(publicKey, PemType.PUBLIC));
-  return publicKeyObject.encrypt(password);
+  return util.encode64(publicKeyObject.encrypt(password));
 };
 
 export const decrypt = (privateKey: string, secret: string) => {
   const privateKeyObject = pki.privateKeyFromPem(addFirstAndLastLine(privateKey, PemType.PRIVATE));
-  return privateKeyObject.decrypt(secret);
+  return privateKeyObject.decrypt(util.decode64(secret));
 };

@@ -7,6 +7,7 @@
 }
 
 .content {
+  align-items: flex-end;
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
@@ -16,11 +17,15 @@
   > *:first-of-type {
     margin-right: 10px;
   }
+
+  button {
+    height: 54px;
+  }
 }
 
 .headline {
-  text-align: center;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .clientOnly {

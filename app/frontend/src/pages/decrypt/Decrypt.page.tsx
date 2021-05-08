@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useGate, useStore } from 'effector-react';
 
-import { useSearchParams } from 'lib/searchParams';
+import { useSearchParams } from 'lib/search-params';
 
 import { TextInput } from 'components/molecules/TextInput';
 import { Button } from 'components/molecules/Button';
@@ -34,7 +34,7 @@ export const DecryptPage = (): JSX.Element => {
   return (
     <main className={s.container}>
       <div className={s.password}>
-        <TextInput placeholder="Here will be the password" value={password} readonly />
+        <TextInput label="Password" placeholder="Here will be the password" value={password} readonly />
         <Button text="Copy" onClick={copyPasswordToClipboardFx as () => void} disabled={passwordLoading} />
       </div>
     </main>

@@ -36,6 +36,7 @@ export const fetchPasswordFx = attach({
 
       if (params.publicKey) {
         const { id, secret } = params;
+        const secretWithReplacedSpaces = secret.split(' ').join('+');
         const keys: Record<string, { privateKey: string }> = JSON.parse(localStorage.getItem('keys') ?? '{}');
         const currentKeys = keys[id];
 
@@ -43,7 +44,7 @@ export const fetchPasswordFx = attach({
           throw { message: 'Invalid link' };
         }
 
-        return decrypt(currentKeys.privateKey, secret);
+        return decrypt(currentKeys.privateKey, secretWithReplacedSpaces);
       }
 
       let data: DecryptResponse;

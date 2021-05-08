@@ -7,7 +7,6 @@ describe('Crypto module', () => {
     const keys = await getKeyPair();
 
     const encrypted = encrypt(keys.publicKey, password);
-    console.log(encrypted);
     const decrypted = decrypt(keys.privateKey, encrypted);
 
     expect(decrypted).toBe(password);

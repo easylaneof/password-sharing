@@ -28,7 +28,7 @@ export const GeneratePage = () => {
       <Text text="Very useful text. Very useful text text useful" />
 
       <div className={s.content}>
-        <TextInput ref={inputRef} value={link} readonly />
+        <TextInput placeholder="Here will be the link.." label="Link" ref={inputRef} value={link} readonly />
         <Button onClick={generateLinkFx as () => void} text="Generate" />
       </div>
 
