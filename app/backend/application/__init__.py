@@ -14,8 +14,9 @@ def create_app(config_object=DevelopmentConfig):
     db.init_app(app)
     with app.app_context():
         from application import dbmodels
-        from application.routes import error_handling
+        from application.routes.error_handling import error_handlers_bp
         from application.routes.general import general_bp
         app.register_blueprint(general_bp)
+        app.register_blueprint(error_handlers_bp)
         db.create_all()
     return app
