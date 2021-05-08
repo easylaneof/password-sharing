@@ -1,3 +1,5 @@
+import datetime
+
 import werkzeug.exceptions
 from application.dbmodels import Sessions
 from application import db
@@ -20,11 +22,14 @@ def delete_record(record_id: str):
     db.session.commit()
 
 
-def set_record_uses(record_id: str, max_uses: int):
+def set_record_uses_and_expiry(record_id: str, max_uses: int, expiry_hours: int, expiry_minutes: int):
     record = db.session.query(Sessions).filter_by(id=record_id).first()
     if record is None:
         raise werkzeug.exceptions.BadRequest("Incorrect ID")
     record.max_uses = max_uses
+    td = datetime.timedelta(hours=expiry_hours,
+                            minutes=expiry_minutes)
+    record.expiry = datetime.datetime.utcnow() + td
     db.session.commit()
 
 
@@ -33,5 +38,5 @@ def decrease_record_uses(record_id: str):
         .filter_by(id=record_id).first()
     record.max_uses = Sessions.max_uses - 1
     db.session.commit()
-    if record.max_uses <= 0:
+    if record.max_uses == 0:
         delete_record(record_id)
