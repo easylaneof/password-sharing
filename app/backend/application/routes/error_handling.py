@@ -1,5 +1,5 @@
 import werkzeug.exceptions
-from flask import current_app as app
+from flask import Blueprint
 
 error_handlers_bp = Blueprint('error_handlers_bp', __name__)
 
