@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
@@ -18,5 +18,31 @@ const Template: Story<Omit<TextInputProps, 'setValue'>> = (props) => {
 
 export const Default = Template.bind({});
 Default.args = {
+  placeholder: 'Placeholder',
+  label: 'Label',
   value: '',
+};
+
+const ErrorTemplate: Story<TextInputProps> = (props) => {
+  const [error, setError] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    setInterval(() => {
+      setError('Error!!!');
+    }, 4000);
+
+    setTimeout(() => {
+      setInterval(() => {
+        setError(undefined);
+      }, 4000);
+    }, 1000);
+  }, []);
+
+  return <TextInput {...props} error={error} />;
+};
+
+export const Error = ErrorTemplate.bind({});
+Error.args = {
+  label: 'I am a error text input',
+  placeholder: 'I am a error placeholder',
 };

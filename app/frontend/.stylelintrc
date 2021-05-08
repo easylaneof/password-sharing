@@ -3,6 +3,7 @@
   "rules": {
     "indentation": [
       2
-    ]
+    ],
+    "selector-class-pattern": null
   }
 }

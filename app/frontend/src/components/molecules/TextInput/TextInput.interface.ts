@@ -1,8 +1,11 @@
 import React from 'react';
 
-export type TextInputTypes = 'text' | 'password';
+export type TextInputTypes = 'email' | 'text' | 'password';
 
 export type TextInputProps = {
+  label: string;
+  placeholder: string;
+
   value?: string;
 
   setValue?: (value: string) => void;
@@ -11,7 +14,7 @@ export type TextInputProps = {
   type?: TextInputTypes;
   readonly?: boolean;
   name?: string;
+  error?: string;
   className?: string;
-  placeholder?: string;
   children?: React.ReactNode;
 };

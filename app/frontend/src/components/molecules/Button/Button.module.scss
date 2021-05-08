@@ -1,7 +1,7 @@
 .container {
   align-items: center;
 
-  background-color: var(--violet);
+  background-color: var(--main);
 
   border: 3px solid transparent;
   border-radius: 4px;
@@ -10,21 +10,52 @@
   display: flex;
   justify-content: center;
 
-  padding: 12px 20px;
+  padding: 15px 32px;
+
+  position: relative;
 
   transition: 0.2s background-color, 0.2s border-color;
 }
 
 .container:hover {
-  background-color: var(--dark-violet);
+  background-color: var(--main-hover);
 }
 
 .container:disabled {
-  background-color: var(--background);
+  background-color: var(--main-disabled);
   cursor: initial;
 }
 
 .container:focus {
-  border-color: var(--background);
+  border-color: var(--focus-outline);
   outline: none;
+}
+
+.text {
+  transition: 0.2s opacity;
+}
+
+.circlesContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  transition: 0.2s opacity;
+
+  width: 35px;
+}
+
+.circle {
+  background-color: var(--white);
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+}
+
+.hidden {
+  opacity: 0;
 }

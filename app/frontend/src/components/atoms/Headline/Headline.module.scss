@@ -1,14 +1,22 @@
 .container {
-  color: var(--white);
+  color: var(--text);
   font-family: var(--main-font);
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
+  transition: var(--theme-change-transition-duration) color;
 }
 
-:global .headline1 {
-  font-size: 48px;
+:global .h1 {
+  font-size: 42px;
+  line-height: 51px;
 }
 
-:global .headline2 {
-  font-size: 36px;
+:global .h2 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+:global .h3 {
+  font-size: 14px;
+  line-height: 17px;
 }

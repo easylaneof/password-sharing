@@ -3,22 +3,36 @@
   flex-direction: column;
 }
 
-.input {
-  background-color: var(--gray);
+.label {
+  margin-bottom: 5px;
+}
 
-  border: 2px solid var(--input-border);
+.input {
+  border: 1.5px solid var(--input-border);
   border-radius: 10px;
+
   color: var(--text);
 
   font-family: var(--main-font);
   font-size: 16px;
   font-weight: var(--text-weight);
+  height: 50px;
   line-height: 125%;
 
-  margin-top: 5px;
-  padding: 15px;
+  text-align: center;
 
   transition: 0.2s border-color;
+  width: 50px;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.input[type='number'] {
+  appearance: textfield;
 }
 
 .input::placeholder {
@@ -36,6 +50,7 @@
 
 .input.error {
   border-color: var(--error);
+  margin-top: 5px;
 }
 
 .errorText {

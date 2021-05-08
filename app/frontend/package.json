@@ -7,6 +7,7 @@
     "classnames": "2.3.1",
     "effector": "21.8.11",
     "effector-react": "21.3.2",
+    "framer-motion": "^4.1.13",
     "node-forge": "^0.10.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -52,6 +53,7 @@
     "node-sass": "5.0.0",
     "prettier": "2.2.1",
     "react-scripts": "4.0.3",
+    "storybook-addon-themes": "^6.1.0",
     "stylelint": "13.13.1",
     "stylelint-config-sass-guidelines": "8.0.0"
   },
