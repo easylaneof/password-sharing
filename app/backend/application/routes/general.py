@@ -1,13 +1,15 @@
 import binascii
-from flask import current_app as app, request
+from flask import request, Blueprint
 from application.database import *
 from application.utils import generate_id, validator, convert_str_to_int
 from application.encryption.app_encryption import *
 from application.encryption.aes_encryption import AESEncryption
 from application.dbmodels import Sessions
 
+general_bp = Blueprint("general_bp", __name__)
 
-@app.route("/generate", methods=["GET"])
+
+@general_bp.route("/generate", methods=["GET"])
 def generate():
     keys = generate_keys()
     new_id = generate_id()
@@ -20,7 +22,7 @@ def generate():
             "id": new_id}, 200
 
 
-@app.route("/encrypt", methods=["POST"])
+@general_bp.route("/encrypt", methods=["POST"])
 def encrypt():
     validator(request, ["password", "id"])
     data = request.get_json()
@@ -38,7 +40,7 @@ def encrypt():
             "id": data["id"]}, 200
 
 
-@app.route("/decrypt", methods=["POST"])
+@general_bp.route("/decrypt", methods=["POST"])
 def decrypt():
     validator(request, ["id", "secret"])
     data = request.get_json()

@@ -26,3 +26,9 @@ class ProductionConfig(Config):
     FLASK_ENV = "production"
     DEBUG = False
     TESTING = False
+
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
+    ENCRYPTION_KEY = "PdQXZSYqSDPQspbKlAt6y9QQPg4ZRBPF"
+    ENCRYPTION_IV = "d412tCf2HA2xDxJO"
