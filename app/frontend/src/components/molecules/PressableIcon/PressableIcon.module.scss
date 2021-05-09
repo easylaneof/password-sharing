@@ -6,12 +6,15 @@
   border: 2px solid var(--main);
   border-radius: 10px;
   cursor: pointer;
-  height: 48px;
   transition: background-color 0.2s, border-color 0.2s;
 
-  width: 36px;
+  margin: 0;
+
+  padding: 1rem 10px;
 
   svg {
+    width: 16px;
+    height: 16px;
     fill: var(--icon-color);
     transition: fill 0.2s;
   }

@@ -1,9 +1,10 @@
-import { attach, createEffect, createEvent, createStore, restore, Store } from 'effector';
+import { attach, createEffect, createEvent, createStore, restore } from 'effector';
 
 import { v4 as uuid } from 'uuid';
 
 import { getKeyPair } from 'lib/crypto';
 import { writeToClipboard } from 'lib/clipboard';
+import { toast } from 'lib/toast';
 
 import { Environment } from 'modules/Environment';
 
@@ -38,11 +39,11 @@ export const generateLinkFx = attach({
       try {
         data = await generateLink();
       } catch (e) {
-        throw { message: 'Something went wrong' };
+        throw new Error('Something went wrong');
       }
 
       if (data.message !== 'OK') {
-        throw { message: data.message };
+        throw new Error(data.message);
       }
 
       return `${Environment.hostname}/encrypt?id=${data.id}`;
@@ -58,10 +59,10 @@ export const copyLinkToClipboardFx = attach({
 });
 
 export const $linkLoading = generateLinkFx.pending;
-export const $linkError: Store<string | null> = restore(
-  generateLinkFx.failData.map((d) => d.message),
-  null
-);
+
+generateLinkFx.failData.watch(({ message }) => {
+  toast.error(message);
+});
 
 $isClientOnly.watch(() => generateLinkFx());
 

@@ -8,6 +8,7 @@ import { Environment } from 'modules/Environment';
 
 import { EncryptionResponse } from './encrypt.types';
 import { postEncrypt } from './encrypt.api';
+import { toast } from '../../lib/toast';
 
 export const $password = createStore('');
 export const $link = createStore('');
@@ -57,7 +58,7 @@ export const generateLinkFx = attach({
       }
 
       if (!queryParams.id) {
-        throw { message: 'Invalid link' };
+        throw new Error('Invalid link');
       }
 
       if (queryParams.publicKey) {
@@ -80,11 +81,11 @@ export const generateLinkFx = attach({
           max_uses: maxUses,
         });
       } catch (e) {
-        throw { message: 'Something went wrong' };
+        throw new Error('Something went wrong');
       }
 
       if (data.message !== 'OK') {
-        throw { message: data.message };
+        throw new Error(data.message);
       }
 
       const { id, secret } = data;
@@ -102,7 +103,10 @@ export const copyLinkToClipboardFx = attach({
 });
 
 export const $linkLoading = generateLinkFx.pending;
-export const $linkError = generateLinkFx.failData.map((d) => d.message);
+
+generateLinkFx.failData.watch(({ message }) => {
+  toast.error(message);
+});
 
 $password.on(changePassword, (_, p) => p);
 $link.on(changePassword, () => '').on(generateLinkFx.doneData, (_, v) => v);
@@ -110,5 +114,3 @@ $link.on(changePassword, () => '').on(generateLinkFx.doneData, (_, v) => v);
 $password.watch(() => {
   generateLinkFx();
 });
-
-$linkError.watch(console.log);

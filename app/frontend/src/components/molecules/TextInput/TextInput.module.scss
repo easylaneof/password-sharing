@@ -19,7 +19,7 @@
 
   padding: 15px;
 
-  transition: 0.2s border-color;
+  transition: 0.2s border-color, var(--theme-change-transition-duration) color;
 
   width: 100%;
 }
@@ -50,7 +50,7 @@
   width: 100%;
 
   > *:not(:first-child) {
-    margin-left: 15px;
+    margin-left: 1rem;
   }
 }
 

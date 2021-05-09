@@ -2,18 +2,29 @@ import React from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { useDarkMode } from 'lib/dark-mode';
+import { ErrorBoundary } from 'lib/error-handling';
+import { toast, ToastifyContainer } from 'lib/toast';
+
+import { ThemeSwitcher } from 'components/atoms/ThemeSwitcher';
 
 import { MainNavigation } from 'navigation';
 
 import './styles/global.scss';
 
 export const App = (): JSX.Element => {
-  useDarkMode();
+  const handleError = (e: Error) => {
+    toast.error(e.message);
+  };
 
   return (
     <Router>
-      <MainNavigation />
+      <ThemeSwitcher />
+
+      <ErrorBoundary fallback={<p>Something went wrong...</p>} onError={handleError}>
+        <MainNavigation />
+      </ErrorBoundary>
+
+      <ToastifyContainer />
     </Router>
   );
 };

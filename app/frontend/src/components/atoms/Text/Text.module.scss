@@ -4,20 +4,14 @@
   transition: var(--theme-change-transition-duration) color;
 }
 
-:global .number {
-  font-size: 18px;
-  font-weight: var(--number-weight);
-  line-height: 125%;
-}
-
 :global .body {
-  font-size: 16px;
+  font-size: var(--body-font-size);
   font-weight: var(--text-weight);
   line-height: 125%;
 }
 
 :global .caption {
-  font-size: 12px;
+  font-size: var(--caption-font-size);
   font-weight: var(--caption-weight);
   line-height: 125%;
 }
