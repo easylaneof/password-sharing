@@ -30,7 +30,13 @@ services:
 
   frontend:
     build:
-      app/frontend
+      context: app/frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_ENVIRONMENT: ${REACT_APP_ENVIRONMENT}
+        REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+        REACT_APP_HOSTNAME: ${REACT_APP_HOSTNAME}
+
     volumes:
     - ./app/frontend:/frontend
     ports:
