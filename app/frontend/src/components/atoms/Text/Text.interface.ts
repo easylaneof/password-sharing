@@ -1,4 +1,4 @@
-export type TextTypes = 'number' | 'body' | 'caption';
+export type TextTypes = 'body' | 'caption';
 
 export type TextProps = {
   text: string;

@@ -23,7 +23,7 @@
 
   text-align: center;
 
-  transition: 0.2s border-color;
+  transition: 0.2s border-color, var(--theme-change-transition-duration) color;
   width: 50px;
 }
 

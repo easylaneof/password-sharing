@@ -50,7 +50,7 @@ export const GeneratePage = () => {
   }, []);
 
   return (
-    <main className={s.container}>
+    <main className={cx(s.container, 'page')}>
       <Headline type="h1" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." className={s.headline} />
 
       <Text

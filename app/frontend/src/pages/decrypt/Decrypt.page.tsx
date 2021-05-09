@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useGate, useStore } from 'effector-react';
 
+import cx from 'classnames';
+
 import { useSearchParams } from 'lib/search-params';
 
 import { Headline } from 'components/atoms/Headline';
@@ -34,7 +36,7 @@ export const DecryptPage = (): JSX.Element => {
   }, []);
 
   return (
-    <main className={s.container}>
+    <main className={cx(s.container, 'page')}>
       <Headline type="h1" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." className={s.headline} />
 
       <Text

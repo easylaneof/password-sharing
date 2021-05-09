@@ -1,13 +1,8 @@
 .container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
 }
 
 .headline {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -17,7 +12,7 @@
 }
 
 .content {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   max-width: 600px;
 
   width: 100%;

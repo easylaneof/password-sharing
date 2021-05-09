@@ -6,6 +6,7 @@ import { decrypt } from 'lib/crypto';
 
 import { DecryptResponse } from './decrypt.types';
 import { postDecrypt } from './decrypt.api';
+import { toast } from '../../lib/toast';
 
 export const $password = createStore('');
 
@@ -31,7 +32,7 @@ export const fetchPasswordFx = attach({
   effect: createEffect({
     handler: async (params: QueryParamsType) => {
       if (!params.id || !params.secret) {
-        throw { message: 'Invalid link' };
+        throw new Error('Invalid link');
       }
 
       if (params.publicKey) {
@@ -41,7 +42,7 @@ export const fetchPasswordFx = attach({
         const currentKeys = keys[id];
 
         if (!currentKeys) {
-          throw { message: 'Invalid link' };
+          throw new Error('Invalid link');
         }
 
         return decrypt(currentKeys.privateKey, secretWithReplacedSpaces);
@@ -52,11 +53,11 @@ export const fetchPasswordFx = attach({
       try {
         data = await postDecrypt({ secret: params.secret, id: params.id });
       } catch (e) {
-        throw { message: 'Something went wrong' };
+        throw new Error('Something went wrong');
       }
 
       if (data.message !== 'OK') {
-        throw { message: data.message };
+        throw new Error(data.message);
       }
 
       return data.password;
@@ -65,8 +66,9 @@ export const fetchPasswordFx = attach({
 });
 
 export const $passwordLoading = fetchPasswordFx.pending;
-export const $passwordError = fetchPasswordFx.failData.map((d) => d.message);
 
-$passwordError.watch(console.log);
+fetchPasswordFx.failData.watch(({ message }) => {
+  toast.error(message);
+});
 
 $password.on(fetchPasswordFx.doneData, (_, v) => v);
