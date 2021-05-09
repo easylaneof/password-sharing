@@ -45,11 +45,14 @@ export const DecryptPage = (): JSX.Element => {
 Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus. "
       />
 
-      <div className={s.content}>
+      <form className={s.content} onSubmit={(e) => e.preventDefault()}>
+        {/* hack so chrome doesnt show warning about a11y */}
+        <input type="text" name="email" value="" autoComplete="email" style={{ display: 'none' }} readOnly />
+
         <TextInput type="password" label="Password" placeholder="Here will be the password" value={password} readonly>
           <Button text="Copy" onClick={copyPasswordToClipboardFx as () => void} disabled={passwordLoading} />
         </TextInput>
-      </div>
+      </form>
     </main>
   );
 };

@@ -10,11 +10,12 @@ import { Environment } from 'modules/Environment';
 
 import { GenerationResponse } from './generate.types';
 import { generateLink } from './generate.api';
+import { createGate } from 'effector-react';
+
+export const GeneratePageGate = createGate<{ email: string }>();
 
 export const $link = createStore('');
-
-export const setEmail = createEvent<string>();
-export const $email = restore(setEmail, '');
+export const $email = GeneratePageGate.state.map((v) => v.email);
 
 export const setIsClientOnly = createEvent<boolean>();
 export const $isClientOnly = restore(setIsClientOnly, true);

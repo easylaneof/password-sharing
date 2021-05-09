@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { DecryptPage, EncryptPage, GeneratePage } from 'pages';
 
@@ -18,6 +18,8 @@ export const MainNavigation = (): JSX.Element => {
       <Route path="/decrypt">
         <DecryptPage />
       </Route>
+
+      <Route path="/" render={() => <Redirect to="/generate" />} />
     </Switch>
   );
 };

@@ -7,6 +7,7 @@ export type TextInputProps = {
   placeholder: string;
 
   value?: string;
+  defaultValue?: string;
 
   setValue?: (value: string) => void;
   onChange?: React.ChangeEventHandler;

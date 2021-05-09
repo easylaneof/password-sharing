@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { motion, Variants } from 'framer-motion';
 import cx from 'classnames';
 
 import { Headline } from 'components/atoms/Headline';
@@ -9,23 +8,6 @@ import { Text } from 'components/atoms/Text';
 import { TimeInputProps } from './TimeInput.interface';
 
 import s from './TimeInput.module.scss';
-
-const errorVariants: Variants = {
-  appear: {
-    opacity: 1,
-    transition: {
-      duration: 0.2,
-    },
-  },
-  initial: {
-    opacity: 0,
-    transition: {
-      duration: 1,
-    },
-  },
-};
-
-const Error = motion(Text);
 
 export const TimeInput = ({
   hours,
@@ -73,17 +55,7 @@ export const TimeInput = ({
         />
       </div>
 
-      {error && (
-        <Error
-          className={s.errorText}
-          variants={errorVariants}
-          initial="initial"
-          animate={error ? 'appear' : 'initial'}
-          type="caption"
-          text={error}
-          color="error"
-        />
-      )}
+      {error && <Text className={s.errorText} type="caption" text={error} color="error" />}
     </div>
   );
 };

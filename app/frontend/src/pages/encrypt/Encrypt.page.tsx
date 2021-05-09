@@ -1,8 +1,11 @@
 import React from 'react';
-import { useGate, useStore } from 'effector-react';
+
 import cx from 'classnames';
+import { useGate, useStore } from 'effector-react';
+import { useForm } from 'react-hook-form';
 
 import { useSearchParams } from 'lib/search-params';
+import { validateAscii } from 'lib/vaidation';
 
 import { Headline } from 'components/atoms/Headline';
 import { Text } from 'components/atoms/Text';
@@ -18,10 +21,8 @@ import {
   $link,
   $linkLoading,
   $maxUses,
-  $password,
-  changePassword,
   copyLinkToClipboardFx,
-  queryParamsGate,
+  EncryptPageGate,
   setExpiryHours,
   setExpiryMinutes,
   setMaxUses,
@@ -29,11 +30,25 @@ import {
 
 import s from './Encrypt.module.scss';
 
-export const EncryptPage = (): JSX.Element => {
-  const searchParams = useSearchParams();
-  useGate(queryParamsGate, { id: searchParams.get<string>('id'), publicKey: searchParams.get<string>('publicKey') });
+const clientText =
+  "Send a password in a secure way. Only the person who have sent you this link will be able to decrypt it. This page does not send anything anywhere. It encrypts the entered password using the recipient's public key encoded in the URL.";
+const serverText =
+  'Send a password in a secure way. You can choose how long the link to your password will be available, and how many times it will be possible to open it';
 
-  const password = useStore($password);
+export const EncryptPage = (): JSX.Element => {
+  const {
+    register,
+    formState: { errors },
+    watch,
+  } = useForm({ shouldFocusError: true, mode: 'onBlur' });
+
+  const searchParams = useSearchParams();
+  useGate(EncryptPageGate, {
+    id: searchParams.get<string>('id'),
+    publicKey: searchParams.get<string>('publicKey'),
+    password: watch('password') ?? '',
+  });
+
   const link = useStore($link);
   const expiryHours = useStore($expiryHours);
   const expiryMinutes = useStore($expiryMinutes);
@@ -44,21 +59,21 @@ export const EncryptPage = (): JSX.Element => {
 
   return (
     <main className={cx(s.container, 'page')}>
-      <Headline type="h1" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." className={s.headline} />
+      <Headline type="h1" text="Encrypt Password" className={s.headline} />
 
-      <Text
-        className={s.description}
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas tortor, tincidunt urna augue cras libero, morbi. Massa neque facilisis nulla blandit donec semper. Vestibulum, lectus ipsum justo, integer. Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus.
-Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus. "
-      />
+      <Text className={s.description} text={isClient ? clientText : serverText} />
 
-      <div className={s.content}>
+      <form className={s.content} onSubmit={(e) => e.preventDefault()}>
+        {/* hack so chrome doesnt show warning about a11y */}
+        <input type="text" name="email" value="" autoComplete="email" style={{ display: 'none' }} readOnly />
+
         <TextInput
           type="password"
           label="Password"
           placeholder="Type your password..."
-          value={password}
-          setValue={changePassword}
+          defaultValue=""
+          {...register('password', { required: true, validate: validateAscii })}
+          error={errors.password?.message}
         />
 
         {!isClient && (
@@ -78,7 +93,7 @@ Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis
         <TextInput className={s.link} label="Link" placeholder="Here will be the link" value={link} readonly>
           <Button text="Copy" onClick={copyLinkToClipboardFx as () => void} loading={linkLoading} />
         </TextInput>
-      </div>
+      </form>
     </main>
   );
 };

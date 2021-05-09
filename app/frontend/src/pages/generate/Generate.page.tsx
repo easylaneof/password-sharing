@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 
 import cx from 'classnames';
-import { useStore } from 'effector-react';
+import { useGate, useStore } from 'effector-react';
 import { motion, Variants } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+
+import { validateEmail } from 'lib/vaidation';
 
 import { Text } from 'components/atoms/Text';
 import { Headline } from 'components/atoms/Headline';
@@ -18,8 +21,7 @@ import {
   generateLinkFx,
   setIsClientOnly,
   $linkLoading,
-  $email,
-  setEmail,
+  GeneratePageGate,
 } from './generate.model';
 
 import s from './Generate.module.scss';
@@ -40,10 +42,20 @@ const appearVariants: Variants = {
 };
 
 export const GeneratePage = () => {
+  const {
+    register,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ shouldFocusError: true });
+
+  useGate(GeneratePageGate, { email: watch('email') });
+
   const link = useStore($link);
   const isClientOnly = useStore($isClientOnly);
   const linkLoading = useStore($linkLoading);
-  const email = useStore($email);
+
+  const handleEmailSend = handleSubmit(console.log);
 
   useEffect(() => {
     generateLinkFx(null as never);
@@ -51,17 +63,24 @@ export const GeneratePage = () => {
 
   return (
     <main className={cx(s.container, 'page')}>
-      <Headline type="h1" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." className={s.headline} />
+      <Headline type="h1" text="Generate Keypair" className={s.headline} />
 
       <Text
         className={s.description}
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas tortor, tincidunt urna augue cras libero, morbi. Massa neque facilisis nulla blandit donec semper. Vestibulum, lectus ipsum justo, integer. Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus.
-Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus. "
+        text="Send the URL below to the person who knows the password and then follow the link they send in return. It's important that no one can change this first link in transit and the sharer gets it exactly as generated. The link is not secret - it's OK to make it even public, it just should be the original one. "
+      />
+
+      <Text
+        className={s.description}
+        text={
+          'There are 2 options: you can choose "Client only" mode, meaning that the keys will be generated at your browser, or you can generate them on server, which allows the person who knows the password to set the expiration time and maximal usages of the link with the password'
+        }
       />
 
       <div className={s.content}>
         <TextInput placeholder="URL" label="URL to share" value={link} readonly>
           <PressableIcon icon="generate" onClick={generateLinkFx as () => void} disabled={linkLoading} />
+          <PressableIcon icon="share" onClick={console.log} />
           <Button
             onClick={copyLinkToClipboardFx as () => void}
             text="Copy"
@@ -80,9 +99,14 @@ Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis
           animate={isClientOnly ? 'initial' : 'appear'}
           className={s.share}
         >
-          <TextInput placeholder="Email" label="Email" value={email} setValue={setEmail}>
-            <PressableIcon icon="share" onClick={generateLinkFx as () => void} disabled={linkLoading} />
-            <Button onClick={copyLinkToClipboardFx as () => void} text="Send" />
+          <TextInput
+            error={errors.email?.message}
+            {...register('email', { required: true, validate: validateEmail })}
+            defaultValue=""
+            placeholder="Email"
+            label="Email"
+          >
+            <Button onClick={handleEmailSend} text="Send" disabled={Boolean(errors.email?.message)} />
           </TextInput>
         </motion.div>
       </div>

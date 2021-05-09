@@ -53,7 +53,7 @@ export const fetchPasswordFx = attach({
       try {
         data = await postDecrypt({ secret: params.secret, id: params.id });
       } catch (e) {
-        throw new Error('Something went wrong');
+        throw new Error(e);
       }
 
       if (data.message !== 'OK') {
