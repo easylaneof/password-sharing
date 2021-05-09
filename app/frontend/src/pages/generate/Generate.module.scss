@@ -6,6 +6,11 @@
   min-height: 100vh;
 }
 
+.description {
+  max-width: 624px;
+  text-align: center;
+}
+
 .content {
   align-items: flex-end;
   display: flex;
@@ -14,13 +19,8 @@
 
   margin-top: 20px;
 
-  > *:first-of-type {
-    margin-right: 10px;
-  }
-
-  button {
-    height: 54px;
-  }
+  max-width: 600px;
+  width: 100%;
 }
 
 .headline {
@@ -29,5 +29,27 @@
 }
 
 .clientOnly {
-  margin-top: 15px;
+  margin: 15px 0;
+}
+
+.shareContainer {
+  max-width: 600px;
+  width: 100%;
+}
+
+.share {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+
+  > *:first-of-type {
+    margin-right: 10px;
+  }
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }

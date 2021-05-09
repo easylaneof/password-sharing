@@ -1,5 +1,7 @@
 .container {
   display: flex;
+
+  flex: 1;
   flex-direction: column;
 }
 
@@ -15,10 +17,11 @@
   font-weight: var(--text-weight);
   line-height: 125%;
 
-  margin-top: 5px;
   padding: 15px;
 
   transition: 0.2s border-color;
+
+  width: 100%;
 }
 
 .input::placeholder {
@@ -38,7 +41,32 @@
   border-color: var(--error);
 }
 
+.inputContainer {
+  align-items: center;
+
+  display: flex;
+
+  margin-top: 5px;
+  width: 100%;
+
+  > *:not(:first-child) {
+    margin-left: 15px;
+  }
+}
+
+.eyeContainer {
+  position: relative;
+  width: 100%;
+}
+
 .errorText {
   margin-left: 10px;
   margin-top: 5px;
+}
+
+.eye {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
 }

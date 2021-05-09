@@ -1,0 +1,29 @@
+.container {
+  --icon-color: var(--main);
+  background-color: var(--background);
+  background-position: center;
+
+  border: 2px solid var(--main);
+  border-radius: 10px;
+  cursor: pointer;
+  height: 48px;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  width: 36px;
+
+  svg {
+    fill: var(--icon-color);
+    transition: fill 0.2s;
+  }
+
+  &:hover {
+    --icon-color: var(--white);
+    background-color: var(--main-hover);
+    border-color: var(--main-hover);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--focus-outline);
+    outline: none;
+  }
+}

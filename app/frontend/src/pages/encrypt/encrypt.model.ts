@@ -1,4 +1,4 @@
-import { attach, createEffect, createEvent, createStore, combine } from 'effector';
+import { attach, createEffect, createEvent, createStore, combine, restore } from 'effector';
 import { createGate } from 'effector-react';
 
 import { writeToClipboard } from 'lib/clipboard';
@@ -12,6 +12,13 @@ import { postEncrypt } from './encrypt.api';
 export const $password = createStore('');
 export const $link = createStore('');
 
+export const setExpiryHours = createEvent<string>();
+export const $expiryHours = restore(setExpiryHours, '1');
+export const setExpiryMinutes = createEvent<string>();
+export const $expiryMinutes = restore(setExpiryMinutes, '00');
+export const setMaxUses = createEvent<number>();
+export const $maxUses = restore(setMaxUses, 1);
+
 type QueryParamsType = {
   id: string | null;
   publicKey: string | null;
@@ -19,12 +26,32 @@ type QueryParamsType = {
 
 export const queryParamsGate = createGate<QueryParamsType>();
 
+export const $isClient = queryParamsGate.state.map((s) => Boolean(s.publicKey));
+
 export const changePassword = createEvent<string>();
 
 export const generateLinkFx = attach({
-  source: combine({ password: $password, queryParams: queryParamsGate.state }),
+  source: combine({
+    password: $password,
+    queryParams: queryParamsGate.state,
+    maxUses: $maxUses,
+    expiryHours: $expiryHours,
+    expiryMinutes: $expiryMinutes,
+  }),
   effect: createEffect({
-    handler: async ({ password, queryParams }: { password: string; queryParams: QueryParamsType }) => {
+    handler: async ({
+      password,
+      queryParams,
+      maxUses,
+      expiryMinutes,
+      expiryHours,
+    }: {
+      password: string;
+      queryParams: QueryParamsType;
+      maxUses: number;
+      expiryHours: string;
+      expiryMinutes: string;
+    }) => {
       if (password.length === 0) {
         return '';
       }
@@ -45,7 +72,13 @@ export const generateLinkFx = attach({
       let data: EncryptionResponse;
 
       try {
-        data = await postEncrypt({ password, id: queryParams.id });
+        data = await postEncrypt({
+          password,
+          id: queryParams.id,
+          expiry_hours: Number(expiryHours),
+          expiry_minutes: Number(expiryMinutes),
+          max_uses: maxUses,
+        });
       } catch (e) {
         throw { message: 'Something went wrong' };
       }

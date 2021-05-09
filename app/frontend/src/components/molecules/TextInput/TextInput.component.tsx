@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { motion, Variants } from 'framer-motion';
 import cx from 'classnames';
@@ -9,6 +9,7 @@ import { Headline } from 'components/atoms/Headline';
 import { TextInputProps, TextInputTypes } from './TextInput.interface';
 
 import s from './TextInput.module.scss';
+import { EyeIcon } from '../../atoms/EyeIcon';
 
 const errorVariants: Variants = {
   appear: {
@@ -35,9 +36,11 @@ const Error = motion(Text);
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
-    { setValue, error, label, value, className, readonly, name, onChange, placeholder, type = 'text' },
+    { setValue, error, label, value, className, readonly, name, onChange, placeholder, type = 'text', children },
     ref
   ): JSX.Element => {
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       if (readonly) {
         return;
@@ -52,24 +55,40 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       }
     };
 
+    const inputType = (() => {
+      if (type === 'password') {
+        return passwordVisible ? 'text' : 'password';
+      }
+
+      return type;
+    })();
+
     return (
-      <label className={s.container}>
+      <label className={cx(s.container, className)}>
         <Headline text={label} type="h2" asSpan />
 
-        <input
-          name={name}
-          readOnly={readonly}
-          ref={ref}
-          className={cx(s.input, className, error && s.error)}
-          value={value}
-          onChange={handleChange}
-          placeholder={placeholder}
-          type={type}
-          autoComplete={mapInputTypeToAutocomplete[type]}
-          aria-errormessage={error}
-          aria-invalid={Boolean(error)}
-          aria-label={label}
-        />
+        <div className={s.inputContainer}>
+          <div className={s.eyeContainer}>
+            <input
+              name={name}
+              readOnly={readonly}
+              ref={ref}
+              className={cx(s.input, error && s.error)}
+              value={value}
+              onChange={handleChange}
+              placeholder={placeholder}
+              type={inputType}
+              autoComplete={mapInputTypeToAutocomplete[type]}
+              aria-errormessage={error}
+              aria-invalid={Boolean(error)}
+              aria-label={label}
+            />
+
+            {type === 'password' && <EyeIcon open={passwordVisible} setOpen={setPasswordVisible} className={s.eye} />}
+          </div>
+
+          {children}
+        </div>
 
         {error && (
           <Error

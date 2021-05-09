@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --main-font: 'Montserrat', sans-serif;
 
@@ -16,9 +22,11 @@
   --light-steel-grey: #f2f2f9;
   --white: #fff;
 
+  --wine: #513f5f;
   --dark-violet: #73237c;
   --violet: #93329e;
   --light-violet: #b45bbe;
+  --snuff: #f0e3f2;
 
   --red: #ee4831;
 
@@ -38,6 +46,9 @@
   --input-border: var(--light-steel-grey);
   --input-border-hover: var(--steel-grey);
   --input-border-focus: var(--light-violet);
+
+  --checkbox-background: var(--light-steel-grey);
+  --checkbox-hover-background: var(--snuff);
 }
 
 .dark-theme {
@@ -47,11 +58,13 @@
   --input-border: var(--grey);
   --input-border-hover: var(--dark-clay);
   --input-border-focus: var(--light-violet);
+
+  --checkbox-background: var(--grey);
+  --checkbox-hover-background: var(--wine);
 }
 
 body {
   background-color: var(--background);
-  box-sizing: border-box;
   font-family: var(--main-font);
 
   margin: 0;
