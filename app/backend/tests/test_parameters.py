@@ -28,4 +28,4 @@ def test_functionality(testapp, mock_encryption_env_vars):
                                           status=400)
     assert max_used_response.status_code == 400
     max_used_response_json = max_used_response.json
-    assert max_used_response_json["message"] == "Incorrect ID"
+    assert max_used_response_json["message"] == "Incorrect ID or the link has expired"
