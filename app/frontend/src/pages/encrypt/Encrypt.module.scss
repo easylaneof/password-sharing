@@ -4,20 +4,38 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+
+  padding: 0 50px;
+}
+
+.description {
+  max-width: 624px;
+  text-align: center;
+}
+
+.headline {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.content {
+  margin-top: 20px;
+  max-width: 600px;
+
+  width: 100%;
+}
+
+.settings {
+  align-items: center;
+  display: flex;
+
+  margin-top: 16px;
+
+  > *:not(:last-child) {
+    margin-right: 32px;
+  }
 }
 
 .link {
-  align-items: flex-end;
-  display: flex;
-  justify-content: space-between;
-
-  margin-top: 20px;
-
-  > *:first-of-type {
-    margin-right: 10px;
-  }
-
-  button {
-    height: 54px;
-  }
+  margin-top: 16px;
 }

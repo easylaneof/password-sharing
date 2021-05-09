@@ -1,4 +1,4 @@
-import { attach, createEffect, createEvent, createStore, restore } from 'effector';
+import { attach, createEffect, createEvent, createStore, restore, Store } from 'effector';
 
 import { v4 as uuid } from 'uuid';
 
@@ -12,8 +12,11 @@ import { generateLink } from './generate.api';
 
 export const $link = createStore('');
 
+export const setEmail = createEvent<string>();
+export const $email = restore(setEmail, '');
+
 export const setIsClientOnly = createEvent<boolean>();
-export const $isClientOnly = restore(setIsClientOnly, false);
+export const $isClientOnly = restore(setIsClientOnly, true);
 
 export const generateLinkFx = attach({
   source: $isClientOnly,
@@ -55,6 +58,11 @@ export const copyLinkToClipboardFx = attach({
 });
 
 export const $linkLoading = generateLinkFx.pending;
-export const $linkError = generateLinkFx.failData.map((d) => d.message);
+export const $linkError: Store<string | null> = restore(
+  generateLinkFx.failData.map((d) => d.message),
+  null
+);
+
+$isClientOnly.watch(() => generateLinkFx());
 
 $link.on(generateLinkFx.doneData, (_, v) => v);
