@@ -1,16 +1,16 @@
-import { attach, createEffect, createEvent, createStore, combine, restore } from 'effector';
+import { attach, createEffect, createEvent, createStore, combine, restore, Store } from 'effector';
 import { createGate } from 'effector-react';
 
 import { writeToClipboard } from 'lib/clipboard';
 import { encrypt } from 'lib/crypto';
+import { toast } from 'lib/toast';
+import { validateAscii } from 'lib/vaidation';
 
 import { Environment } from 'modules/Environment';
 
 import { EncryptionResponse } from './encrypt.types';
 import { postEncrypt } from './encrypt.api';
-import { toast } from '../../lib/toast';
 
-export const $password = createStore('');
 export const $link = createStore('');
 
 export const setExpiryHours = createEvent<string>();
@@ -20,21 +20,22 @@ export const $expiryMinutes = restore(setExpiryMinutes, '00');
 export const setMaxUses = createEvent<number>();
 export const $maxUses = restore(setMaxUses, 1);
 
-type QueryParamsType = {
+type EncryptPageGateProps = {
   id: string | null;
   publicKey: string | null;
+  password: string;
 };
 
-export const queryParamsGate = createGate<QueryParamsType>();
+export const EncryptPageGate = createGate<EncryptPageGateProps>();
 
-export const $isClient = queryParamsGate.state.map((s) => Boolean(s.publicKey));
+const $password = EncryptPageGate.state.map((s) => s.password ?? '');
 
-export const changePassword = createEvent<string>();
+export const $isClient = EncryptPageGate.state.map((s) => Boolean(s.publicKey));
 
 export const generateLinkFx = attach({
   source: combine({
     password: $password,
-    queryParams: queryParamsGate.state,
+    gate: EncryptPageGate.state,
     maxUses: $maxUses,
     expiryHours: $expiryHours,
     expiryMinutes: $expiryMinutes,
@@ -42,27 +43,27 @@ export const generateLinkFx = attach({
   effect: createEffect({
     handler: async ({
       password,
-      queryParams,
+      gate,
       maxUses,
       expiryMinutes,
       expiryHours,
     }: {
       password: string;
-      queryParams: QueryParamsType;
+      gate: EncryptPageGateProps;
       maxUses: number;
       expiryHours: string;
       expiryMinutes: string;
     }) => {
-      if (password.length === 0) {
+      if (password.length === 0 || validateAscii(password) !== true) {
         return '';
       }
 
-      if (!queryParams.id) {
+      if (!gate.id) {
         throw new Error('Invalid link');
       }
 
-      if (queryParams.publicKey) {
-        const { publicKey, id } = queryParams;
+      if (gate.publicKey) {
+        const { publicKey, id } = gate;
         const publicKeyWithPluses = publicKey.split(' ').join('+');
 
         const secret = await encrypt(publicKeyWithPluses, password);
@@ -75,7 +76,7 @@ export const generateLinkFx = attach({
       try {
         data = await postEncrypt({
           password,
-          id: queryParams.id,
+          id: gate.id,
           expiry_hours: Number(expiryHours),
           expiry_minutes: Number(expiryMinutes),
           max_uses: maxUses,
@@ -104,13 +105,14 @@ export const copyLinkToClipboardFx = attach({
 
 export const $linkLoading = generateLinkFx.pending;
 
-generateLinkFx.failData.watch(({ message }) => {
-  toast.error(message);
+generateLinkFx.failData.watch((e) => {
+  toast.error(e.message);
 });
 
-$password.on(changePassword, (_, p) => p);
-$link.on(changePassword, () => '').on(generateLinkFx.doneData, (_, v) => v);
+$link.on($password, () => '').on(generateLinkFx.doneData, (_, v) => v);
 
-$password.watch(() => {
-  generateLinkFx();
-});
+// for some reason doesn't allow to make such loop without assigning
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _ = ([$password, $expiryMinutes, $expiryHours, $maxUses] as Store<unknown>[]).forEach((store) =>
+  store.watch(() => generateLinkFx())
+);

@@ -27,7 +27,7 @@
 
   text-align: center;
 
-  transition: 0.2s border-color, var(--theme-change-transition-duration) color;
+  transition: 0.2s border-color, var(--theme-change-transition-duration) color, var(--theme-change-transition-duration) background-color;
   width: 50px;
 }
 
@@ -77,6 +77,7 @@
 
 .circle {
   background-color: var(--input-border-hover);
+  transition: var(--theme-change-transition-duration) background-color;
   border-radius: 50%;
   height: 4px;
   width: 4px;

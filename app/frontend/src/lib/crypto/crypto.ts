@@ -6,7 +6,7 @@ const rsa = pki.rsa;
 
 export const getKeyPair = () => {
   return new Promise<{ publicKey: string; privateKey: string }>((res, rej) => {
-    rsa.generateKeyPair({ bits: 1024, workers: 2 }, (err, keyPair) => {
+    rsa.generateKeyPair({ bits: 1024, workers: 0 }, (err, keyPair) => {
       if (err) {
         rej(err);
       }
