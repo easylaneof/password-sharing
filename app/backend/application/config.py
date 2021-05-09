@@ -18,6 +18,7 @@ class ProductionConfig(Config):
     FLASK_ENV = "production"
     DEBUG = False
     TESTING = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestConfig(Config):

@@ -1,11 +1,11 @@
-FROM python:3.9
+FROM python:3-alpine
 RUN mkdir /backend
 WORKDIR /backend
 COPY requirements.txt /backend/requirements.txt
-RUN apt update && \
-    apt install -y libev-dev libevdev2
-RUN pip install --upgrade pip && \
+RUN apk update && \
+    apk add build-base mariadb-dev libev-dev mariadb-connector-c && \
     pip install -r requirements.txt && \
-    pip install bjoern
+    pip install bjoern && \
+    apk del build-base mariadb-dev
 COPY . ./
 CMD ["python", "run.py"]
