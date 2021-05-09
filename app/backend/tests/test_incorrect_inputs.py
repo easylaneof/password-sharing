@@ -1,9 +1,7 @@
 import random
 import string
 
-import pytest
 from flask import url_for
-from test_functionality import message_check
 
 random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=12))
 
