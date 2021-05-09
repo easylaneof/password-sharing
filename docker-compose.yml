@@ -1,17 +1,31 @@
 version: '3'
 
 services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=super_secret_password
+      - MYSQL_DATABASE=password_sharing
+      - MYSQL_USER=password_sharing
+      - MYSQL_PASSWORD=another_supersecret_password
+    ports:
+      - 3306
   backend:
     build:
       app/backend
-    command: [ 'flask', 'run', '--host=0.0.0.0', '--port=5000' ]
     volumes:
       - ./app/backend:/backend
     environment:
-      - FLASK_ENV=development
-      - FLASK_APP=application/app.py
+      - FLASK_ENV=production
+      - FLASK_APP=run.py
+      - DATABASE_URI=mysql://password_sharing:another_supersecret_password@db/password_sharing?charset=utf8mb4
+      - ENCRYPTION_KEY=PdQXZSYqSDPQspbKlAt6y9QQPg4ZRBPF
+      - ENCRYPTION_IV=d412tCf2HA2xDxJO
     ports:
       - 5000:5000
+    depends_on:
+      - db
     restart: unless-stopped
 
   frontend:
@@ -21,8 +35,6 @@ services:
     - ./app/frontend:/frontend
     ports:
       - 3000:3000
-    depends_on:
-      - backend
     restart: unless-stopped
 
 volumes:

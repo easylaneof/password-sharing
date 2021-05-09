@@ -1,15 +1,11 @@
-from os import environ, path
-from dotenv import load_dotenv
-
-basedir = (path.dirname(__file__))
-load_dotenv(path.join(basedir, ".env"))
+from os import environ
 
 
 class Config:
     STATIC_FOLDER = "static"
-    SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URI")
-    ENCRYPTION_KEY = environ.get("ENCRYPTION_KEY")
-    ENCRYPTION_IV = environ.get("ENCRYPTION_IV")
+    SQLALCHEMY_DATABASE_URI = environ["DATABASE_URI"]
+    ENCRYPTION_KEY = environ["ENCRYPTION_KEY"]
+    ENCRYPTION_IV = environ["ENCRYPTION_IV"]
     JWT_TOKEN_LOCATION = ("headers", "query_string")
     JWT_QUERY_STRING_NAME = "token"
     JWT_HEADER_TYPE = ""
