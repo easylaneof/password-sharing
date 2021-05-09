@@ -37,12 +37,11 @@ export const DecryptPage = (): JSX.Element => {
 
   return (
     <main className={cx(s.container, 'page')}>
-      <Headline type="h1" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." className={s.headline} />
+      <Headline type="h1" text="Get Password" className={s.headline} />
 
       <Text
         className={s.description}
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Egestas tortor, tincidunt urna augue cras libero, morbi. Massa neque facilisis nulla blandit donec semper. Vestibulum, lectus ipsum justo, integer. Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus.
-Elementum vivamus quisque mi ut faucibus magna odio felis. Dui feugiat facilisis elit commodo lobortis sagittis purus. "
+        text="Here is the password that has been shared with you. Make sure to retrieve it now and store it in a safe place (e.g. password manager). Thank you for using our service!"
       />
 
       <form className={s.content} onSubmit={(e) => e.preventDefault()}>
