@@ -41,6 +41,8 @@ const appearVariants: Variants = {
   },
 };
 
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 export const GeneratePage = () => {
   const {
     register,
@@ -56,6 +58,12 @@ export const GeneratePage = () => {
   const linkLoading = useStore($linkLoading);
 
   const handleEmailSend = handleSubmit(console.log);
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({ text: 'Encrypt your password', title: 'Password sharing', url: link });
+    }
+  };
 
   useEffect(() => {
     generateLinkFx(null as never);
@@ -80,7 +88,7 @@ export const GeneratePage = () => {
       <div className={s.content}>
         <TextInput placeholder="URL" label="URL to share" value={link} readonly>
           <PressableIcon icon="generate" onClick={generateLinkFx as () => void} disabled={linkLoading} />
-          <PressableIcon icon="share" onClick={console.log} />
+          {isMobile && <PressableIcon icon="share" onClick={handleShare} disabled={link.length === 0} />}
           <Button
             onClick={copyLinkToClipboardFx as () => void}
             text="Copy"
