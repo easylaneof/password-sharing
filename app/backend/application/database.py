@@ -12,10 +12,10 @@ def create_record(session: Sessions):
 def get_validate_record(record_id: str):
     db_record = db.session.query(Sessions).filter_by(id=record_id).first()
     if db_record is None:
-        raise werkzeug.exceptions.BadRequest("Incorrect ID")
+        raise werkzeug.exceptions.BadRequest("Incorrect ID or the link has expired")
     if db_record.expiry and db_record.expiry < datetime.utcnow():
         delete_record(record_id)
-        raise werkzeug.exceptions.BadRequest("Incorrect ID")
+        raise werkzeug.exceptions.BadRequest("Incorrect ID or the link has expired")
     return db_record
 
 
