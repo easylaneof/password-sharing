@@ -5,10 +5,10 @@ services:
     image: mariadb
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=super_secret_password
+      - MYSQL_ROOT_PASSWORD=#super_secret_password#
       - MYSQL_DATABASE=password_sharing
       - MYSQL_USER=password_sharing
-      - MYSQL_PASSWORD=another_supersecret_password
+      - MYSQL_PASSWORD=#another_supersecret_password#
     ports:
       - 3306
   backend:
@@ -19,9 +19,9 @@ services:
     environment:
       - FLASK_ENV=production
       - FLASK_APP=run.py
-      - DATABASE_URI=mysql://password_sharing:another_supersecret_password@db/password_sharing?charset=utf8mb4
-      - ENCRYPTION_KEY=PdQXZSYqSDPQspbKlAt6y9QQPg4ZRBPF
-      - ENCRYPTION_IV=d412tCf2HA2xDxJO
+      - DATABASE_URI=mysql://password_sharing:#another_supersecret_password#@db/password_sharing?charset=utf8mb4
+      - ENCRYPTION_KEY=#32 bytes long encryption key#
+      - ENCRYPTION_IV=#16 bytes long IV#
     ports:
       - 5000:5000
     depends_on:
@@ -33,9 +33,9 @@ services:
       context: app/frontend
       dockerfile: Dockerfile
       args:
-        REACT_APP_ENVIRONMENT: ${REACT_APP_ENVIRONMENT}
-        REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
-        REACT_APP_HOSTNAME: ${REACT_APP_HOSTNAME}
+        REACT_APP_ENVIRONMENT: production
+        REACT_APP_BACKEND_URL: #your backend url. e.g. http://127.0.0.1:5000#
+        REACT_APP_HOSTNAME: #your hostname. e.g. https://example.com#
 
     volumes:
     - ./app/frontend:/frontend
