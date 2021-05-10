@@ -1,4 +1,4 @@
-import { attach, createEffect, createEvent, createStore, restore } from 'effector';
+import { attach, combine, createEffect, createEvent, createStore, restore } from 'effector';
 
 import { v4 as uuid } from 'uuid';
 
@@ -9,7 +9,7 @@ import { toast } from 'lib/toast';
 import { Environment } from 'modules/Environment';
 
 import { GenerationResponse } from './generate.types';
-import { generateLink } from './generate.api';
+import { generateLink, sendEmail } from './generate.api';
 import { createGate } from 'effector-react';
 
 export const GeneratePageGate = createGate<{ email: string }>();
@@ -59,11 +59,21 @@ export const copyLinkToClipboardFx = attach({
   source: $link,
 });
 
+export const sendMailFx = attach({
+  effect: createEffect({
+    handler: sendEmail,
+  }),
+  source: combine({ link: $link, mail: $email }),
+});
+
 export const $linkLoading = generateLinkFx.pending;
+export const $emailLoading = sendMailFx.pending;
 
 generateLinkFx.failData.watch(({ message }) => {
   toast.error(message);
 });
+
+sendMailFx.failData.watch(({ message }) => toast.error(message));
 
 $isClientOnly.watch(() => generateLinkFx());
 

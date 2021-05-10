@@ -22,6 +22,8 @@ import {
   setIsClientOnly,
   $linkLoading,
   GeneratePageGate,
+  sendMailFx,
+  $emailLoading,
 } from './generate.model';
 
 import s from './Generate.module.scss';
@@ -56,8 +58,11 @@ export const GeneratePage = () => {
   const link = useStore($link);
   const isClientOnly = useStore($isClientOnly);
   const linkLoading = useStore($linkLoading);
+  const emailLoading = useStore($emailLoading);
 
-  const handleEmailSend = handleSubmit(console.log);
+  const handleEmailSend = handleSubmit(() => {
+    sendMailFx();
+  });
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -114,7 +119,12 @@ export const GeneratePage = () => {
             placeholder="Email"
             label="Email"
           >
-            <Button onClick={handleEmailSend} text="Send" disabled={Boolean(errors.email?.message)} />
+            <Button
+              onClick={handleEmailSend}
+              text="Send"
+              disabled={Boolean(errors.email?.message)}
+              loading={emailLoading}
+            />
           </TextInput>
         </motion.div>
       </div>

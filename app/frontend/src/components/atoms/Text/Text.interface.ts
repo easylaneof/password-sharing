@@ -6,4 +6,5 @@ export type TextProps = {
   color?: string;
   type?: TextTypes;
   className?: string;
+  currentColor?: boolean;
 };

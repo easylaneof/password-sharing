@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useGate, useStore } from 'effector-react';
 
 import cx from 'classnames';
+import { Link } from 'react-router-dom';
 
 import { useSearchParams } from 'lib/search-params';
 
@@ -52,6 +53,10 @@ export const DecryptPage = (): JSX.Element => {
           <Button text="Copy" onClick={copyPasswordToClipboardFx as () => void} disabled={passwordLoading} />
         </TextInput>
       </form>
+
+      <Link to="/generate" className={s.link}>
+        <Text text="Try again" currentColor />
+      </Link>
     </main>
   );
 };
