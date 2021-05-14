@@ -19,3 +19,12 @@
 
   width: 100%;
 }
+
+.link {
+  margin-top: 20px;
+  text-decoration: none;
+
+  > span {
+    color: var(--main);
+  }
+}
